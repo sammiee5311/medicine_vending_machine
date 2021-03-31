@@ -1,7 +1,9 @@
 const {PythonShell} = require("python-shell");
+const filePath = "./Python";
+const fileName = "main.py"
 
 class pythonModule{
-    constructor(filePath, fileName){
+    constructor(){
         this.fileName = fileName;
         this.options = {
             scriptPath: filePath,
@@ -18,7 +20,7 @@ class pythonModule{
     }
 }
 
-let pyModule = new pythonModule("./Python", "main.py");
+let pyModule = new pythonModule();
 medicines = [ 'medicine1', 'medicine2', 'medicine3' ]
 
 pyModule.addMedicines(medicines);
