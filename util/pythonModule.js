@@ -2,7 +2,7 @@ const {PythonShell} = require("python-shell");
 const filePath = "./Python";
 const fileName = "main.py"
 
-class pythonModule{
+module.exports = class pythonModule{
     constructor(){
         this.fileName = fileName;
         this.options = {

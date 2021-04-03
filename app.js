@@ -1,34 +1,33 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+
 const path = require('path');
-const PORT = 8080;
 
+const PORT = 3000;
+const errorController = require('./controllers/error');
 const sequelize = require('./util/database');
-const Database = require('./models/machine');
 
-
-/*
 const app = express();
+
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
+const externalMedRoutes = require('./routes/externalMedicalSupplies');
+const generalMedRoutes = require('./routes/generalMedicine');
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
-*/
 
-Database.medicines.create({
-    // column name: value
-  }).then(result =>{
-    console.log('created sccuessfully.');
-  }).catch(err =>{
-    console.log(err)
-});
+app.use(externalMedRoutes);
+app.use(generalMedRoutes);
 
-/*
+
+app.use(errorController.get404);
+
 sequelize.sync().then(result => {
+    // console.log(result);
     app.listen(PORT);
 })
 .catch(err => {
     console.log(err);
 });
-*/

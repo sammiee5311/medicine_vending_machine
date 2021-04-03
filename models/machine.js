@@ -1,36 +1,26 @@
-const Sequelize = require('sequelize');
+const {PythonShell} = require("python-shell");
 
-const sequelize = require('../util/database');
+const filePath = "..util/Python";
+const fileName = "main.py"
 
-const Medicines = sequelize.define('medicines', {
-  machineId: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    primaryKey: true
-  },
-  A: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  B: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  C: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  D: {
-    type: Sequelize.INTEGER,
-    allowNull: false
+
+module.exports = class pythonModule{
+  constructor(){
+      this.fileName = fileName;
+      this.options = {
+          scriptPath: filePath,
+          args: []
+      };
   }
-},
-{
-  timestamps: false,
-  freezeTableName: true,
-  tableName : "medicines"
-});
 
-module.exports = {
-    medicines: Medicines
+  addMedicines(medicines){
+      this.options.args = medicines
+  }
+
+  resetMedicines(){
+      pyModule.options.args.length = 0;
+  }
 }
+
+
+
