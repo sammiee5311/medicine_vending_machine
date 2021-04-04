@@ -15,7 +15,7 @@ The number of graduates has increased since the change to six-year graduation of
 - [ ] make a frame by using a 3D printer
 - [ ] complete the machine
 
-### SoftWare
+### Software
 - [ ] make a User Interface
 - [ ] connect to AWS
 - [ ] complete client-side
