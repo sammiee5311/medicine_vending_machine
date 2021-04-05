@@ -1,6 +1,6 @@
 const {PythonShell} = require("python-shell");
 
-const filePath = "..util/Python";
+const filePath = "..util/python";
 const fileName = "main.py"
 
 
@@ -18,7 +18,7 @@ module.exports = class pythonModule{
   }
 
   resetMedicines(){
-      pyModule.options.args.length = 0;
+      this.options.args.length = 0;
   }
 }
 
