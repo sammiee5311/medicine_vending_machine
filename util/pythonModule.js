@@ -1,5 +1,5 @@
 const {PythonShell} = require("python-shell");
-const filePath = "./Python";
+const filePath = "./python";
 const fileName = "main.py"
 
 module.exports = class pythonModule{
