@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.get('/', externalMed.indexPage);
 
-router.get('/vending', externalMed.getMedicineList)
+router.get('/vending', externalMed.getMedicineList);
 
 module.exports = router;

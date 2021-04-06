@@ -1,6 +1,6 @@
 const {PythonShell} = require("python-shell");
 
-const filePath = "..util/python";
+const filePath = "..util/Python";
 const fileName = "main.py"
 
 
