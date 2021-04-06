@@ -1,0 +1,87 @@
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body { 
+    height: 480px;
+    margin: 2% auto;
+    padding: 5px;
+    font-family: 'GmarketSansMedium';
+    border: 1px solid black;
+}
+
+header {
+    text-align: center;
+    padding: 10px;
+}
+
+.logo {
+    margin-top: 5px;
+    width: 300px;
+    height: 50px;
+}
+
+#telephone {
+    width: 50px; 
+    height: 50px;
+    margin: 0 22% 0;
+}
+
+.btn {
+    text-align: center;
+    border: 1px solid #27AE60;
+    border-width: thick;
+    border-radius: 15px;
+    display: inline-block;
+    color: black;
+    text-decoration-line: none;
+    -ms-user-select: none; 
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#option {
+    height: 70%;
+    width: 38%;
+    background-color: #27AE60;
+    font-size: 500%;
+    line-height: 340px;
+    margin: 2% 5%;
+}
+
+#previous {
+    height: 50px;
+    width: 120px;
+    margin-right: 2px;
+    font-size: 20px;
+    line-height: 50px;
+    float: right;
+}
+
+#home {
+    height: 50px;
+    width: 120px;
+    margin-left: 2px;
+    font-size: 20px;
+    line-height: 50px;
+    float: left;
+}
+
+.box {
+    width: 95%;
+    margin: 1% auto;
+    border: 1px solid black;
+}
+
+.video {
+    height: 300px;
+    width: 45%;
+    margin: 2% 20px 0;
+    display: inline-block;
+    border: 1px solid black;
+}
