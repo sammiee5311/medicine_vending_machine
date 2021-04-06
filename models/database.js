@@ -7,12 +7,26 @@ const Schema = mongoose.Schema;
 const machineSchema = new Schema({
   medicines:[
     {
-      medicineId: { 
-        type: Schema.Types.ObjectId, 
-        ref: 'Medicine',
+      name: { 
+        type: String,
         required: true
       },
-      quantity: { type: Number, required: true}
+      price: {
+        type: Number,
+        required: true
+      },
+      quantity: { 
+        type: Number, 
+        required: true
+      },
+      imageUrl: { 
+        type: String, 
+        required: true
+      },
+      description: { 
+        type: String, 
+        required: true
+      }
     }
   ],
 
@@ -56,14 +70,6 @@ const medicineSchema = new Schema({
   imageUrl: {
     type: String,
     required: true
-  },
-
-  machines: { 
-    machineId: { 
-      type: Schema.Types.ObjectId,
-      ref: 'Machine', 
-      required: true
-    }
   }
 });
 
@@ -78,15 +84,11 @@ const videoSchema = new Schema({
     required: true
   },
 
-  machines: [
-    { 
-      machineId: { 
-        type: Schema.Types.ObjectId,
-        ref: 'Machine', 
-        required: true
-      }
-    }
-  ]
+  machineId: { 
+    type: Schema.Types.ObjectId,
+    ref: 'Machine', 
+    required: true
+  }
 });
 
 // const Pharmacists = sequelize.define('pharmacists', {
@@ -117,6 +119,35 @@ const videoSchema = new Schema({
 // freezeTableName: true,
 // tableName : "pharmacists"
 // });
+
+machineSchema.methods.addMedicine = function(medicineInfo, machine, targetName, targetQuantity) {
+  const targetPrice = medicineInfo.price;
+  const targetImageUrl = medicineInfo.imageUrl;
+  const targetDescription = medicineInfo.description;
+  let newQuantity = 1;
+  const medicineIndex = this.medicines.findIndex(medi => {
+      return medi.name === targetName;
+  });
+  const UpdatedMedicine = [...this.medicines];
+  if (medicineIndex >= 0) {
+      newQuantity = this.medicines[medicineIndex].quantity + Number(targetQuantity);
+      UpdatedMedicine[medicineIndex].quantity = newQuantity;
+  }   
+  else {
+      UpdatedMedicine.push({
+          name: targetName,
+          price: targetPrice,
+          quantity: targetQuantity,
+          imageUrl: targetImageUrl,
+          description: targetDescription
+      });
+  }
+  const medicine = {
+      medicines: UpdatedMedicine
+  };
+  this.medicines = medicine.medicines;
+  return this.save();
+}
 
 module.exports = {
     Machine: mongoose.model('Machine', machineSchema),

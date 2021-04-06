@@ -19,6 +19,7 @@ app.set('views', 'views');
 
 const externalMedRoutes = require('./routes/externalMedicalSupplies');
 const generalMedRoutes = require('./routes/generalMedicine');
+const adminRoutes = require('./routes/admin');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -34,6 +35,7 @@ app.use((req, res, next) => {
 
 app.use(externalMedRoutes);
 app.use(generalMedRoutes);
+app.use('/admin', adminRoutes);
 
 app.use(errorController.get404);
 
