@@ -6,11 +6,13 @@
 }
 
 body { 
+    width: 800px;
     height: 480px;
     margin: 2% auto;
     padding: 5px;
     font-family: 'GmarketSansMedium';
-    border: 1px solid black;
+    user-select: none;
+    border: solid 1px black;
 }
 
 header {
@@ -24,12 +26,6 @@ header {
     height: 50px;
 }
 
-#telephone {
-    width: 50px; 
-    height: 50px;
-    margin: 0 22% 0;
-}
-
 .btn {
     text-align: center;
     border: 1px solid #27AE60;
@@ -38,18 +34,13 @@ header {
     display: inline-block;
     color: black;
     text-decoration-line: none;
-    -ms-user-select: none; 
-    -moz-user-select: -moz-none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
 }
 
 #option {
     height: 70%;
     width: 38%;
     background-color: #27AE60;
-    font-size: 500%;
+    font-size: 400%;
     line-height: 340px;
     margin: 2% 5%;
 }
@@ -73,15 +64,106 @@ header {
 }
 
 .box {
-    width: 95%;
-    margin: 1% auto;
-    border: 1px solid black;
+    width: 100%;
+    display: inline-block;
 }
 
 .video {
     height: 300px;
-    width: 45%;
-    margin: 2% 20px 0;
+    width: 43%;
+    margin: 2% 25px 0;
     display: inline-block;
-    border: 1px solid black;
+    border-radius: 15px;
+    border-width: thick;
+    border: 1px solid #27AE60;
+}
+
+.telephone {
+    width: 50px; 
+    height: 50px;
+    margin: 0 21.5% 0;
+}
+
+.menubar {
+    width: 580px;
+    height: 50px;
+    margin: 0 10px;
+    line-height: 50px;
+    font-size: 2rem;
+    display: inline-block;
+    padding: 5px 15px;
+    border: 1px solid #27AE60;
+}
+
+.menubar a {
+    width: 20px;
+    height: 50px;
+    margin: 0 25px;
+    color: black;
+    border-radius: 15px;
+    border-width: 5px;
+    border: 1px solid #27AE60;
+}
+
+.list {
+    width: 580px;
+    min-height: 300px;
+    margin: 10px;
+    display: inline-block;
+    padding: 5px 15px;
+    border: 1px solid #27AE60;
+}
+
+.chest {
+    width: 17.5%;
+    height: 40%;
+    display: inline-block;
+    text-align: center;
+    margin: 0 10px;
+}
+
+.marchandise {
+    margin: 5% 10% 10%;
+    width: 100px;
+    height: 100px;
+}
+
+.sidebar {
+    width: 125px;
+    height: 375px;
+    margin: 0 10px;
+    padding: 5px;
+    font-size: 20px;
+    float: right;
+    border-radius: 15px;
+    border: 1px solid #27AE60;
+}
+
+.payment {
+    width: 120px;
+    height: 40px;
+    margin: 10px 2.5%;
+    position: relative;
+    top: 55%;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 10px;
+}
+
+#price {
+    height: 10px;
+    line-height: 0px;
+    margin: 10px 0;
+}
+
+#ok {
+    margin: 5px 0;
+    border-radius: 15px;
+    background-color: #5DADE2;
+}
+
+#cancel {
+    margin: 5px 0;
+    border-radius: 15px;
+    background-color: #E74C3C;
 }
