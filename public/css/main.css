@@ -1,27 +1,43 @@
-body {
-    width: 100%;
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body { 
     height: 480px;
-    padding: 5px 5px 5px 5px;
+    margin: 2% auto;
+    padding: 5px;
+    font-family: 'GmarketSansMedium';
     border: 1px solid black;
 }
 
 header {
-    width: 100%;
-    height: 75px;
-    background-color: aqua;
+    text-align: center;
+    padding: 10px;
 }
 
-.option {
-    height: 90%;
-    width: 38%;
+.logo {
+    margin-top: 5px;
+    width: 300px;
+    height: 50px;
+}
+
+#telephone {
+    width: 50px; 
+    height: 50px;
+    margin: 0 22% 0;
+}
+
+.btn {
     text-align: center;
-    background-color: #0078FF;
+    border: 1px solid #27AE60;
+    border-width: thick;
     border-radius: 15px;
     display: inline-block;
-    color: white;
-    font-size: 96px;
-    line-height: 400px;
-    margin: 2% 5.5% 2% 5.5%;
+    color: black;
+    text-decoration-line: none;
     -ms-user-select: none; 
     -moz-user-select: -moz-none;
     -khtml-user-select: none;
@@ -29,54 +45,43 @@ header {
     user-select: none;
 }
 
-a {
-    color: white;
-    text-decoration-line: none;
+#option {
+    height: 70%;
+    width: 38%;
+    background-color: #27AE60;
+    font-size: 500%;
+    line-height: 340px;
+    margin: 2% 5%;
 }
 
 #previous {
-    height: 60px;
+    height: 50px;
     width: 120px;
-    text-align: center;
-    background-color: #0078FF;
-    border-radius: 15px;
-    display: inline-block;
-    color: white;
-    margin: 5px 2px 15px 2px;
+    margin-right: 2px;
     font-size: 20px;
-    line-height: 60px;
+    line-height: 50px;
     float: right;
 }
 
 #home {
-    height: 60px;
+    height: 50px;
     width: 120px;
-    text-align: center;
-    background-color: #0078FF;
-    border-radius: 15px;
-    display: inline-block;
-    color: white;
-    margin: 5px 2px 15px 2px;
+    margin-left: 2px;
     font-size: 20px;
-    line-height: 60px;
+    line-height: 50px;
     float: left;
 }
 
-.video {
-    width: 40%;
-    height: 35%;
-    margin: 1% 1% 4% 1%;
-    border: 1px solid black;   
+.box {
+    width: 95%;
+    margin: 1% auto;
+    border: 1px solid black;
 }
 
-.list {
-    width: 48%;
-    height: 28%;
+.video {
+    height: 300px;
+    width: 45%;
+    margin: 2% 20px 0;
     display: inline-block;
-    position: absolute;
-    top: 6.5%;
-    left: 50%;
-    margin: 1% 1% 1% 1%;
-    float: right;
-    border: 1px solid black;   
+    border: 1px solid black;
 }
