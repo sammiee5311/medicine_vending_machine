@@ -1,2 +1,62 @@
-
-<%- include('../includes/end.ejs') %>     
+<%- include('../includes/head.ejs') %>
+    <body>
+        <header>
+            <script src="/js/order.js"></script>
+            <a href="/" class="btn" id="previous">이전으로</a>
+            <img src="/images/logo.png" alt="logo" class="logo">
+            <a href="/" class="btn" id="home">처음으로</a>
+        </header>
+        <div class="box">
+            <aside class="menubar">
+                <a href="#">두통</a>
+                <a href="#">치통</a>
+                <a href="#">복통</a>
+            </aside>
+            <aside class="sidebar">
+                <div>
+                    <% cartMedicines.forEach(cartMedi => {%>
+                        <div>
+                            <h2 class="medicine__name"><%= cartMedi.medicineId.name %> <%= cartMedi.quantity %></h2>
+                            <form action="/vending-remove-from-cart" method="post">
+                                <button class="btn" type="submit">Delete Medicine</button>
+                                <input type="hidden" name="medicineIdFromCart" value="<%= cartMedi.medicineId._id %>">
+                            </form>
+                        </div>
+                        
+                    <% }) %>
+                </div>
+                <div class="payment">
+                    <div>결제금액</div>
+                    <div id="price"><%= price %></div>
+                    <form action="/vending-clear-cart" method="post">
+                        <button id="ok">결제하기</button>
+                    </form>
+                    <div id="cancel">취소하기</div>
+                </div>
+            </aside>
+            <div class="list">
+                <% medicines.forEach(medi => {%>
+                    <article class="card medicine-item">
+                        <header class="card__header">
+                            <h1 class="medicine__name"><%= medi.medicineId.name %></h1>
+                        </header>
+                        <div class="card__image">
+                            <img src="<%= medi.medicineId.imageUrl %>"
+                                alt="<%= medi.medicineId.name %>">
+                        </div>
+                        <div class="card__content">
+                            <h2 class="medicine__price"><%= medi.medicineId.price %></h2>
+                            <p class="medicine__description"><%= medi.medicineId.description %></p>
+                        </div>
+                        <div>
+                            <form action="/vending-add-to-cart" method="post">
+                                <button class="btn" type="submit">Add to Cart</button>
+                                <input type="hidden" name="medicineId" value="<%= medi.medicineId._id %>">
+                            </form>
+                        </div>
+                    </article>
+                    <% }) %>
+            </div>
+        </div>
+        
+<%- include('../includes/end.ejs') %> 

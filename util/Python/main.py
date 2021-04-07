@@ -29,9 +29,12 @@ class PythonModule:
 
 if __name__ == '__main__':
     py_module = PythonModule(sys.argv[1:])
+    
     for data in py_module.pop_data():
-        continue
-        # print(data)
+        print(data)
 
-    if py_module.has_gotten_all():
-        print("done")
+    try: 
+        if py_module.has_gotten_all():
+            print("done")
+    except:
+        print("fail")

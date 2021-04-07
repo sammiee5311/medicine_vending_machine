@@ -39,26 +39,30 @@ app.use('/admin', adminRoutes);
 
 app.use(errorController.get404);
 
-sequelize.sync().then(result => {
-    mongoose.connect(mongoURL, {useNewUrlParser: true, useUnifiedTopology: true})
-    .then(result =>{
-        Machine.findOne().then(machine =>{
-            if(!machine){
-              const machine = new Machine({
-                medicines: [],
-                location: 'No Where',
-                videos: []
-              });
-              machine.save();
+mongoose.connect(mongoURL, {useNewUrlParser: true, useUnifiedTopology: true})
+.then(result =>{
+    Machine.findOne().then(machine =>{
+        if(!machine){
+          const machine = new Machine({
+            medicines: [],
+            location: 'No Where',
+            videos: [],
+            cart: { 
+              medicines: [ ] 
             }
           });
-        console.log('Connected!');
-        app.listen(PORT);
-    })
-    .catch(err =>{
-        console.log(err);
-    })
+          machine.save();
+        }
+      });
+    console.log('Connected!');
+    app.listen(PORT);
 })
-.catch(err => {
+.catch(err =>{
     console.log(err);
-});
+})
+
+// sequelize.sync().then(result => {
+// })
+// .catch(err => {
+//     console.log(err);
+// });

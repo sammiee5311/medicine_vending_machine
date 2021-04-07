@@ -18,7 +18,7 @@ exports.postAddMedicine = (req, res, next) => {
         if(medicineInfo){
             Database.Machine.findById(medicineId)
             .then(machine => {
-                req.machine.addMedicine(medicineInfo, machine, name, quantity)
+                req.machine.addMedicine(medicineInfo, name, quantity)
             })
             .catch(err => {
                 console.log(err);
@@ -33,27 +33,37 @@ exports.postAddMedicine = (req, res, next) => {
     });
 }
 
-// exports.addMedicine = (req, res, next) => {
-//     const name = 'C';
-//     const imageUrl = '';
-//     const price = 6.99;
-//     const description = 'digestion';
-//     const dosageMethod = "Take one pill a day."
-//     const medicine = new Database.Medicine({ 
-//         name: name, 
-//         price: price, 
-//         description: description, 
-//         dosageMethod: dosageMethod,
-//         imageUrl: imageUrl
-//      });
-//      medicine
-//       .save()
-//       .then(result => {
-//         // console.log(result);
-//         console.log('Created Medicine');
-//         res.redirect('/');
-//       })
-//       .catch(err => {
-//         console.log(err);
-//       });
-// }
+exports.getAddMedicineInMachine = (req, res, next) => {
+    res.render('admin/add-medicine', {
+      pageTitle: 'Add Product',
+      path: '/admin/add-medicine-in-machine',
+      editing: false
+    });
+};
+
+exports.postAddMedicineInMachine = (req, res, next) => {
+    const name = 'A';
+    const imageUrl = '';
+    const price = 6.99;
+    const description = 'digestion';
+    const dosageMethod = "Take one pill a day.";
+
+    const medicine = new Database.Medicine({ 
+        name: name, 
+        price: price, 
+        description: description, 
+        dosageMethod: dosageMethod,
+        imageUrl: imageUrl
+     });
+
+     medicine
+      .save()
+      .then(result => {
+        console.log(result);
+        console.log('Created Medicine');
+        res.redirect('/');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+}

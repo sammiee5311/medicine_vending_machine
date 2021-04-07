@@ -26,6 +26,12 @@ header {
     height: 50px;
 }
 
+.medi {
+    margin-top: 5px;
+    width: 100px;
+    height: 100px;
+}
+
 .btn {
     text-align: center;
     border: 1px solid #27AE60;
@@ -61,6 +67,41 @@ header {
     font-size: 20px;
     line-height: 50px;
     float: left;
+}
+
+  
+.card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+}
+
+.card__header,
+.card__content {
+padding: 1rem;
+}
+
+.card__header h1,
+.card__content h1,
+.card__content h2,
+.card__content p {
+margin: 0;
+}
+
+.card__image {
+width: 100%;
+}
+
+.card__image img {
+width: 100%;
+}
+
+.card__actions {
+padding: 1rem;
+text-align: center;
+}
+
+.card__actions button,
+.card__actions a {
+margin: 0 0.25rem;
 }
 
 .box {
@@ -157,6 +198,8 @@ header {
 }
 
 #ok {
+    width: 110px;
+    height: 30px;
     margin: 5px 0;
     border-radius: 15px;
     background-color: #5DADE2;
