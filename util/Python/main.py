@@ -30,8 +30,8 @@ class PythonModule:
 if __name__ == '__main__':
     py_module = PythonModule(sys.argv[1:])
     
-    for data in py_module.pop_data():
-        print(data)
+    # for data in py_module.pop_data():
+    #     print(data)
 
     try: 
         if py_module.has_gotten_all():

@@ -5,10 +5,21 @@
         <img src="/images/logo.png" alt="logo" class="logo">
         <a href="/" class="btn" id="home">처음으로</a>
     </header>
+    <form class="form-inline" method="POST">
+        <div class="form-group">
+          <label for="msgForm">Medicines: </label>
+          <input type="text" name="medicineIds" class="form-control" id="msgForm">
+          <button type="submit" class="btn btn-primary">Send</button>
+          <!-- <lable id="chatLogs"></lable> -->
+        </div>
+      </form>
     <div class="box">
         <div class="video" id="Pharmacy"></div>
         <div class="video" id="self"></div>
         <img src="/images/telephone_up.png" alt="telephone" class="telephone" id="up" onclick="telephone_up">
         <img src="/images/telephone_down.png" alt="telephone" class="telephone" id="down" onclick="telephone_down">
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/socket.io.js"></script>
 <%- include('../includes/end.ejs') %>    

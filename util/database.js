@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const Sequelize = require('');
 
 const sequelize = new Sequelize('', '', '', {  // database, username, password
     dialect: '', 

@@ -70,6 +70,7 @@ exports.postOrder = (req, res, next) => {
         medicines: medicines
       });
       Machine.addMedicines(medicines);
+      req.machine.changeMedicineStock(medicines);
       return order.save();
     })
     .then(result => {
@@ -77,6 +78,7 @@ exports.postOrder = (req, res, next) => {
     })
     .then(() => {
       Machine.dischargeMedicines();
+      Machine.resetMedicines();
       res.redirect('/vending');
     })
     .catch(err => console.log(err));

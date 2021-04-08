@@ -22,6 +22,9 @@
     "mysql2": "^2.2.5",
     "pug": "^3.0.2",
     "python-shell": "^3.0.0",
-    "sequelize": "^6.6.2"
+    "sequelize": "^6.6.2",
+    "socket.io": "4.0.1",
+    "socket.io-client": "^4.0.1",
+    "ws": "^7.4.4"
   }
 }

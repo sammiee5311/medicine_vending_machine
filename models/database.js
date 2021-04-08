@@ -178,6 +178,22 @@ machineSchema.methods.clearCart = function(){
   return this.save();
 }
 
+machineSchema.methods.changeMedicineStock = function(medicineInfos){
+  const updatedMedicines = [...this.medicines];
+
+  medicineInfos.forEach(medicineInfo => {
+    const medicineIndex = this.medicines.findIndex(medi => {
+      return medi.medicineId.toString() === medicineInfo.medicine._id.toString();
+    });
+    newQuantity = this.medicines[medicineIndex].quantity - 1;
+    updatedMedicines[medicineIndex].quantity = newQuantity;
+  })
+
+  this.medicines = updatedMedicines;
+  
+  return this.save();
+}
+
 module.exports = {
     Machine: mongoose.model('Machine', machineSchema),
     Video: mongoose.model('Video', videoSchema),

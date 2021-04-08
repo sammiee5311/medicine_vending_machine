@@ -14,8 +14,13 @@ const Machine = require('./models/database').Machine;
 
 const app = express();
 
+
 app.set('view engine', 'ejs');
 app.set('views', 'views');
+
+var server = require('http').createServer(app);
+
+var io = require('socket.io')(server);
 
 const externalMedRoutes = require('./routes/externalMedicalSupplies');
 const generalMedRoutes = require('./routes/generalMedicine');
@@ -54,8 +59,26 @@ mongoose.connect(mongoURL, {useNewUrlParser: true, useUnifiedTopology: true})
           machine.save();
         }
       });
-    console.log('Connected!');
-    app.listen(PORT);
+      io.on('connection', socket => {
+        socket.on('login', data => {
+          console.log('Client logged-in:\n name: ' + data.name + '\n userid: ' + data.userId);
+          socket.name = data.name;
+          socket.userId = data.userId;
+        });
+      
+        // get msg from client
+        socket.on('chat', data => {
+          console.log('Message from %s: %s', socket.name, data.msg);
+        });
+
+        socket.on('disconnect', () => {
+          console.log('disconnected: ' + socket.name);
+        });
+      });
+      server.listen(PORT, () => {
+        console.log('Connected!');
+      });
+    // app.listen(PORT);
 })
 .catch(err =>{
     console.log(err);

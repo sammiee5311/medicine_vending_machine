@@ -6,6 +6,8 @@ const generalMed = require('../controllers/generalMedicine');
 
 const router = express.Router();
 
-router.get('/pharmacist', generalMed.indexPage);
+router.get('/pharmacist', generalMed.getIndexPage);
+
+router.post('/pharmacist', generalMed.postConnectWebSocketIo);
 
 module.exports = router;
