@@ -125,6 +125,22 @@ margin: 0 0.25rem;
     margin: 0 21.5% 0;
 }
 
+
+.grid {
+    width: 500px;
+    margin: 0 auto;
+    background-color: dimgrey;
+    text-align: center;
+    font-size: 0;
+}
+
+.grid_item {
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    vertical-align: top;
+}
+
 .menubar {
     width: 580px;
     height: 50px;
@@ -136,7 +152,7 @@ margin: 0 0.25rem;
     border: 1px solid #27AE60;
 }
 
-.menubar a {
+.menubar_a {
     width: 20px;
     height: 50px;
     margin: 0 25px;

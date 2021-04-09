@@ -54,7 +54,8 @@ mongoose.connect(mongoURL, {useNewUrlParser: true, useUnifiedTopology: true})
             videos: [],
             cart: { 
               medicines: [ ] 
-            }
+            },
+            sortByMedicine: "all"
           });
           machine.save();
         }

@@ -8,9 +8,30 @@
         </header>
         <div class="box">
             <aside class="menubar">
-                <a href="#">두통</a>
-                <a href="#">치통</a>
-                <a href="#">복통</a>
+                <div class="grid_item">
+                    <form action="/vending-sort-by-tag" method="post">
+                        <button class="btn" type="submit">두통</button>
+                        <input type="hidden" name="medicineTag" value="headache">
+                    </form>
+                </div>
+                <div class="grid_item">
+                    <form action="/vending-sort-by-tag" method="post">
+                        <button class="btn" type="submit">치통</button>
+                        <input type="hidden" name="medicineTag" value="toothache">
+                    </form>
+                </div>
+                <div class="grid_item">
+                    <form action="/vending-sort-by-tag" method="post">
+                        <button class="btn" type="submit">복통</button>
+                        <input type="hidden" name="medicineTag" value="stomachache">
+                    </form>
+                </div>
+                <div class="grid_item">
+                    <form action="/vending-sort-by-tag" method="post">
+                        <button class="btn" type="submit">모두</button>
+                        <input type="hidden" name="medicineTag" value="all">
+                    </form>
+                </div>
             </aside>
             <aside class="sidebar">
                 <div>

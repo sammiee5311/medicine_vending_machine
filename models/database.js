@@ -34,6 +34,11 @@ const machineSchema = new Schema({
               quantity: { type: Number, required: true}
           }
       ]
+  },
+
+  sortByMedicine: {
+    type: String,
+    required: true
   }
 });
 
@@ -59,6 +64,11 @@ const medicineSchema = new Schema({
   },
   
   imageUrl: {
+    type: String,
+    required: true
+  },
+
+  category: {
     type: String,
     required: true
   },

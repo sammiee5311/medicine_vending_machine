@@ -16,4 +16,6 @@ router.post('/vending-remove-from-cart', externalMed.postRemoveFromCart)
 
 router.post('/vending-clear-cart', externalMed.postOrder);
 
+router.post('/vending-sort-by-tag', externalMed.postGetMedicinesSortByTag);
+
 module.exports = router;

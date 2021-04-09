@@ -2,22 +2,31 @@ const Database = require('../models/database');
 const Machine = require('../models/machine');
 const Order = require('../models/order');
 
+const resetTag = (req) => {
+  req.machine.sortByMedicine = "all";
+}
 
 exports.indexPage = (req, res, next) =>{
-    res.render('machine/index', {
-        pageTitle: 'machine',
-        path: '/index'
-    })
+  res.render('machine/index', {
+      pageTitle: 'machine',
+      path: '/index'
+  })
 }
 
 exports.getMedicineList = (req, res, next) =>{
+  console.log(req.machine.sortByMedicine);
     req.machine
     .populate('medicines.medicineId cart.medicines.medicineId')
     .execPopulate()
     .then(machine => {
         let price = 0;
         cartMedicines = machine.cart.medicines;
-        medicines = machine.medicines;
+        const medicines = []
+        machine.medicines.forEach(medi => {
+          if(medi.medicineId.category.includes(req.machine.sortByMedicine)){
+            medicines.push(medi);
+          }
+        })
         cartMedicines.forEach(medicine => {
             price += medicine.quantity * medicine.medicineId.price;
         });
@@ -32,6 +41,14 @@ exports.getMedicineList = (req, res, next) =>{
     .catch(err =>{
         console.log(err);
     });
+}
+
+exports.postGetMedicinesSortByTag = (req, res, next) =>{
+  const medicineTag = req.body.medicineTag;
+  req.machine.sortByMedicine = medicineTag;
+  req.machine.save(err => {
+    res.redirect('/vending');
+  });
 }
 
 exports.postCart = (req, res, next) => {
@@ -58,6 +75,7 @@ exports.postRemoveFromCart = (req, res, next) => {
 }
 
 exports.postOrder = (req, res, next) => {
+  resetTag(req);
   req.machine
     .populate('cart.medicines.medicineId')
     .execPopulate()
