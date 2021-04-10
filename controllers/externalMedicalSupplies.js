@@ -14,7 +14,6 @@ exports.indexPage = (req, res, next) =>{
 }
 
 exports.getMedicineList = (req, res, next) =>{
-  console.log(req.machine.sortByMedicine);
     req.machine
     .populate('medicines.medicineId cart.medicines.medicineId')
     .execPopulate()

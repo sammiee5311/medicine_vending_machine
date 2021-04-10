@@ -5,6 +5,23 @@ const Order = require('../models/order');
 exports.getIndexPage = (req, res, next) =>{
     res.render('machine/pharmacist', {
         pageTitle: 'pharmacist',
+        isCallButtonClicked: false,
+        path: '/pharmacist'
+    })
+}
+
+exports.postCallPharmacist = (req, res, next) => {
+    res.render('machine/pharmacist', {
+        pageTitle: 'pharmacist',
+        isCallButtonClicked: true,
+        path: '/pharmacist'
+    })
+}
+
+exports.postEndCallPharmacist = (req, res, next) => {
+    res.render('machine/pharmacist', {
+        pageTitle: 'pharmacist',
+        isCallButtonClicked: false,
         path: '/pharmacist'
     })
 }
@@ -19,6 +36,7 @@ exports.postConnectWebSocketIo = (req, res, next) => {
         });
         const order = new Order({
             machine:{ machineId: req.machine },
+            isCallButtonClicked: true,
             medicines: medicines
         });
         Machine.addMedicines(medicines);
@@ -33,3 +51,4 @@ exports.postConnectWebSocketIo = (req, res, next) => {
         console.log(err);
     })
 };
+

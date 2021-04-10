@@ -8,6 +8,10 @@ const router = express.Router();
 
 router.get('/pharmacist', generalMed.getIndexPage);
 
-router.post('/pharmacist', generalMed.postConnectWebSocketIo);
+router.post('/pharmacist-call', generalMed.postCallPharmacist);
+
+router.post('/pharmacist-end-call', generalMed.postEndCallPharmacist);
+
+router.post('/pharmacist-get-medicines', generalMed.postConnectWebSocketIo);
 
 module.exports = router;
