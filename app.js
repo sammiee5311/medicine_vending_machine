@@ -6,7 +6,6 @@ const machineId = '';
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
 const PORT = 3000;
 const errorController = require('./controllers/error');
 const sequelize = require('./util/database');

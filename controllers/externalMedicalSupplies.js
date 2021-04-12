@@ -6,6 +6,8 @@ const resetTag = (req) => {
   req.machine.sortByMedicine = "all";
 }
 
+let errorMessage = null;
+
 exports.indexPage = (req, res, next) =>{
   res.render('machine/index', {
       pageTitle: 'machine',
@@ -29,17 +31,21 @@ exports.getMedicineList = (req, res, next) =>{
         cartMedicines.forEach(medicine => {
             price += medicine.quantity * medicine.medicineId.price;
         });
-        res.render('machine/vending', {
+        return res.render('machine/vending', {
             medicines: medicines,
             cartMedicines: cartMedicines,
             price: price,
             pageTitle: 'machine',
-            path: '/vending'
+            path: '/vending',
+            errorMessage: errorMessage
         });
+    })
+    .then(() => {
+      errorMessage = null;
     })
     .catch(err =>{
         console.log(err);
-    });
+    });  
 }
 
 exports.postGetMedicinesSortByTag = (req, res, next) =>{
@@ -54,10 +60,18 @@ exports.postCart = (req, res, next) => {
     const medicineId = req.body.medicineId;
     Database.Medicine.findById(medicineId)
       .then(medicine => {
+        const idx = req.machine.medicines.findIndex(medi => {
+          return medi.medicineId.toString() === medicine._id.toString();
+        });
+        if (req.machine.medicines[idx].quantity < 1){
+          errorMessage = "물품이 없습니다.";
+          return res.redirect('/vending');
+        }
         req.machine.addToCart(medicine);
+        return res.redirect('/vending');
       })
-      .then(result => {
-        res.redirect('/vending');
+      .catch(err => {
+        console.log(err);
       });
 };
 
@@ -100,8 +114,3 @@ exports.postOrder = (req, res, next) => {
     })
     .catch(err => console.log(err));
 };
-
-// exports.dischargeMedicine = (res, res, next) =>{
-//     Machine
-// }
-// 
