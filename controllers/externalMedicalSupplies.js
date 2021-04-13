@@ -22,18 +22,14 @@ exports.getMedicineList = (req, res, next) =>{
     .then(machine => {
         let price = 0;
         cartMedicines = machine.cart.medicines;
-        const medicines = []
-        machine.medicines.forEach(medi => {
-          if(medi.medicineId.category.includes(req.machine.sortByMedicine)){
-            medicines.push(medi);
-          }
-        })
+        const medicines = machine.medicines;
         cartMedicines.forEach(medicine => {
             price += medicine.quantity * medicine.medicineId.price;
         });
         return res.render('machine/vending', {
             medicines: medicines,
             cartMedicines: cartMedicines,
+            category: req.machine.sortByMedicine,
             price: price,
             pageTitle: 'machine',
             path: '/vending',

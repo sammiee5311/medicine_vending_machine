@@ -60,6 +60,7 @@
             </aside>
             <div class="list">
                 <% medicines.forEach(medi => {%>
+                    <% if (medi.medicineId.category.includes(category)) { %>
                     <article class="card medicine-item">
                         <header class="card__header">
                             <h1 class="medicine__name"><%= medi.medicineId.name %></h1>
@@ -82,7 +83,8 @@
                             </form>
                         </div>
                     </article>
-                    <% }) %>
+                    <% } %>
+                <% }) %>
             </div>
         </div>
         
