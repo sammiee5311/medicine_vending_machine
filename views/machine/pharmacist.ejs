@@ -1,32 +1,33 @@
 <%- include('../includes/head.ejs') %>
 <body>
-    <header>
-        <a href="/" class="btn" id="previous">이전으로</a>
-        <img src="/images/logo.png" alt="logo" class="logo">
-        <a href="/" class="btn" id="home">처음으로</a>
-    </header>
-    <form action="/pharmacist-get-medicines" method="POST">
+    <div class="box">
+      <!-- <form action="/pharmacist-get-medicines" method="POST">
         <div class="form-group">
           <label for="msgForm">Medicines: </label>
           <input type="text" name="medicineIds" class="form-control" id="msgForm">
           <button type="submit" class="btn btn-primary">Send</button>
-          <!-- <lable id="chatLogs"></lable> -->
-        </div>
+          <lable id="chatLogs"></lable>
+        </div> 
+      </form>-->
+      
+      <a href="/" class="prev" id="prev_pharmacist"><</a>
+
+      <div class="video">
+        <% if (isCallButtonClicked) { %>
+        <iframe src="https://localhost:8080/" allow="geolocation; microphone; camera" style="width:300px; height:300px; margin:1%"></iframe>
+        <iframe src="https://localhost:8080/" allow="geolocation; microphone; camera" style="width:300px; height:300px; margin:1%"></iframe>
+        <% } %>
+      </div>
+            
+      <form action="/pharmacist-call" method="post" class="telephone">
+        <button class="telephone" id="telephone_up">영상통화</button>
+        <input type="hidden" name="callSignal">
       </form>
-    <div class="box">
-        <div class="video">
-          <% if (isCallButtonClicked) { %>
-          <iframe src="https://localhost:8080/" allow="geolocation; microphone; camera" style=" width:400px; height:350px"></iframe>
-          <% } %>
-        </div>
-        <form action="/pharmacist-call" method="post">
-          <button type="submit" id="up"><img src="/images/telephone_up.png" class="telephone" ></button>
-          <input type="hidden" name="callSignal">
-        </form>
-        <form action="/pharmacist-end-call" method="post">
-          <button type="submit" id="down"><img src="/images/telephone_down.png" class="telephone" ></button>
-          <input type="hidden" name="callEndSignall">
-        </form>
+      <form action="/pharmacist-end-call" method="post" class="telephone" >
+        <button class="telephone" id="telephone_down">통화종료</button>
+        <input type="hidden" name="callEndSignall">
+      </form>
+
     </div>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>

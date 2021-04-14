@@ -6,72 +6,85 @@
 }
 
 body { 
-    width: 800px;
-    height: 480px;
-    margin: 2% auto;
+    width: 95%;
+    min-height: 480px;
+    margin: 2%;
     padding: 5px;
     font-family: 'GmarketSansMedium';
     user-select: none;
-    border: solid 1px black;
 }
 
-header {
+a {
+    color: black;
+}
+
+.box {
+    width: 100%;
+    padding: 5px;
+    min-height: 480px;
     text-align: center;
-    padding: 10px;
+    display: inline-block;
 }
 
 .logo {
-    margin-top: 5px;
+    margin-top: 15px;
     width: 300px;
     height: 50px;
 }
 
-.medi {
-    margin-top: 5px;
-    width: 100px;
-    height: 100px;
-}
-
 .btn {
-    text-align: center;
+    color: black;
     border: 1px solid #27AE60;
     border-width: thick;
     border-radius: 15px;
     display: inline-block;
+    text-align: center;
+    text-decoration-line: none;
+    background-color: white;
+}
+
+#btn_menu {
+    width: 100px;
+    height: 60px;
+    font-size: 25px;
+    line-height: 55px;
+}
+
+.slide {
+    width: 40%;
+    margin: 4% 2.5%;
+    height: 70%;
     color: black;
+    border: 1px solid #27AE60;
+    border-width: thick;
+    border-radius: 15px;
+    font-size: 285%;
+    line-height: 480px;
+    display: inline-block;
+    text-align: center;
     text-decoration-line: none;
 }
 
-#option {
-    height: 70%;
-    width: 38%;
-    background-color: #27AE60;
-    font-size: 400%;
-    line-height: 340px;
-    margin: 2% 5%;
+#slide_left {
+    text-align: right;
+    padding-right: 3%;
 }
 
-#previous {
-    height: 50px;
-    width: 120px;
-    margin-right: 2px;
-    font-size: 20px;
-    line-height: 50px;
-    float: right;
+#slide_right {
+    text-align: left;
+    padding-left: 3%;
 }
 
-#home {
-    height: 50px;
-    width: 120px;
-    margin-left: 2px;
-    font-size: 20px;
-    line-height: 50px;
-    float: left;
-}
-
-  
 .card {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+}
+
+.card_medicine_item {
+    width: 100px;
+    height: 300px;
+    margin: 0 3%;
+    float: left;
+    display: inline-block;
 }
 
 .card__header,
@@ -104,15 +117,13 @@ text-align: center;
 margin: 0 0.25rem;
 }
 
-.box {
-    width: 100%;
-    display: inline-block;
-}
-
 .video {
-    height: 300px;
-    width: 750px;
-    margin: 2% 25px 0;
+    width: 75%;
+    height: 80%;
+    min-height: 350px;
+    margin: 2% 25px;
+    padding: 2%;
+    float: right;
     display: inline-block;
     border-radius: 15px;
     border-width: thick;
@@ -120,15 +131,20 @@ margin: 0 0.25rem;
 }
 
 .telephone {
+    width: 95px;
+    height: 30px;
+    color: white;
+    font-weight: bold;
     background: no-repeat;
     border: none;
-    width: 50px; 
-    height: 50px;
-    margin: 0 21.5% 0;
+    border-radius: 50px;
+    margin: 0 15% 5%;
     cursor: pointer;
+    display: inline-block;
 }
 
-
+#telephone_up {background-color: #5DADE2;}
+#telephone_down {background-color: #E74C3C;}
 
 .grid {
     width: 500px;
@@ -141,6 +157,7 @@ margin: 0 0.25rem;
 .grid_item {
     width: 100px;
     height: 100px;
+    margin: 0 3%;
     display: inline-block;
     vertical-align: top;
 }
@@ -153,59 +170,52 @@ margin: 0 0.25rem;
     font-size: 2rem;
     display: inline-block;
     padding: 5px 15px;
-    border: 1px solid #27AE60;
-}
-
-.menubar_a {
-    width: 20px;
-    height: 50px;
-    margin: 0 25px;
-    color: black;
-    border-radius: 15px;
-    border-width: 5px;
-    border: 1px solid #27AE60;
 }
 
 .list {
-    width: 580px;
-    min-height: 300px;
-    margin: 10px;
-    display: inline-block;
-    padding: 5px 15px;
-    border: 1px solid #27AE60;
-}
-
-.chest {
-    width: 17.5%;
-    height: 40%;
-    display: inline-block;
+    width: 60%;
+    min-height: 50px;
+    margin-top: 4%;
+    padding-top: 4%;
     text-align: center;
-    margin: 0 10px;
-}
-
-.marchandise {
-    margin: 5% 10% 10%;
-    width: 100px;
-    height: 100px;
+    display: inline-block;
+    border-top: 3px solid #27AE60;
 }
 
 .sidebar {
-    width: 125px;
-    height: 375px;
+    width: 12.5%;
+    height: 100%;
+    min-height: 360px;
     margin: 0 10px;
     padding: 5px;
     font-size: 20px;
+    text-align: center;
     float: right;
     border-radius: 15px;
-    border: 1px solid #27AE60;
 }
+
+.prev {
+    width: 10%;
+    height: 80%;
+    min-height: 400px;
+    padding: 5px;
+    font-size: 20px;
+    text-align: center;
+    font-size: 3em;
+    line-height: 500px;
+    text-decoration: none;
+    border-radius: 15px;
+}
+
+#prev_vending {float: right;}
+#prev_pharmacist {float: left;}
 
 .payment {
     width: 120px;
     height: 40px;
     margin: 10px 2.5%;
-    position: relative;
-    top: 55%;
+    position: 60%;
+    top: 60%;
     text-align: center;
     line-height: 40px;
     border-radius: 10px;
@@ -217,32 +227,54 @@ margin: 0 0.25rem;
     margin: 10px 0;
 }
 
-#ok {
-    width: 110px;
-    height: 30px;
-    margin: 5px 0;
-    border-radius: 15px;
-    background-color: #5DADE2;
-}
-
-#cancel {
-    margin: 5px 0;
-    border-radius: 15px;
-    background-color: #E74C3C;
-}
-
-.user-message {
-    margin:auto;
+#ok, #cancel {
     width: 90%;
-    border: 1px solid rgb(63, 89, 236);
-    padding: 0.5rem;
-    border-radius: 3px;
-    background: rgba(124, 161, 240, 0.918);
-    text-align: center;
-  }
-  
-  .user-message-error{
-    border-color: red;
-    background: rgb(238, 182, 182);
-    color: red;
-  }
+    height: 40px;
+    margin: 5px 0;
+    font-weight: bold;
+    border: 0px;
+    border-radius: 15px;
+}
+
+#ok {background-color: #5DADE2;}
+#cancel {background-color: #E74C3C;}
+
+@media screen and (max-width: 768px) {
+    .logo {
+        margin-top: 15px;
+        width: 150px;
+        height: 25px;
+    }
+
+    .box {
+        min-height: 240px;
+
+    }
+    
+    .telephone {
+        margin-left: 25%;
+        margin-bottom: 5%;
+    }
+
+    .slide {
+        margin: 0 2%;
+        width: 40%;
+        height: 240px;
+        font-size: 180%;
+        line-height: 240px;
+    }
+
+    .video {
+        width: 60%;
+        min-width: 320px;
+        height: 90%;
+        min-height: 300px;
+        margin: 2% 15px;
+        padding: 2%;
+    }
+
+    .prev {
+        height: 100%;
+        min-height: 200px;
+    }
+}

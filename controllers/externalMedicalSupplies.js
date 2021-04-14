@@ -7,6 +7,7 @@ const resetTag = (req) => {
 }
 
 let errorMessage = null;
+let medicineCategory = "all";
 
 exports.indexPage = (req, res, next) =>{
   res.render('machine/index', {
@@ -26,10 +27,11 @@ exports.getMedicineList = (req, res, next) =>{
         cartMedicines.forEach(medicine => {
             price += medicine.quantity * medicine.medicineId.price;
         });
+        console.log(medicines);
         return res.render('machine/vending', {
             medicines: medicines,
             cartMedicines: cartMedicines,
-            category: req.machine.sortByMedicine,
+            category: medicineCategory,
             price: price,
             pageTitle: 'machine',
             path: '/vending',
@@ -45,11 +47,13 @@ exports.getMedicineList = (req, res, next) =>{
 }
 
 exports.postGetMedicinesSortByTag = (req, res, next) =>{
-  const medicineTag = req.body.medicineTag;
-  req.machine.sortByMedicine = medicineTag;
-  req.machine.save(err => {
-    res.redirect('/vending');
-  });
+  medicineCategory = req.body.medicineTag;
+  res.redirect('/vending');
+  // const medicineTag = req.body.medicineTag;
+  // req.machine.sortByMedicine = medicineTag;
+  // req.machine.save(err => {
+  //   res.redirect('/vending');
+  // });
 }
 
 exports.postCart = (req, res, next) => {
@@ -84,7 +88,8 @@ exports.postRemoveFromCart = (req, res, next) => {
 }
 
 exports.postOrder = (req, res, next) => {
-  resetTag(req);
+  // resetTag(req);
+  medicineCategory = "all";
   req.machine
     .populate('cart.medicines.medicineId')
     .execPopulate()
@@ -97,7 +102,7 @@ exports.postOrder = (req, res, next) => {
         medicines: medicines
       });
       Machine.addMedicines(medicines);
-      req.machine.changeMedicineStock(medicines);
+      // req.machine.changeMedicineStock(medicines);
       return order.save();
     })
     .then(result => {

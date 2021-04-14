@@ -1,48 +1,52 @@
 <%- include('../includes/head.ejs') %>
     <body>
-        <header>
-            <script src="/js/order.js"></script>
-            <a href="/" class="btn" id="previous">이전으로</a>
-            <img src="/images/logo.png" alt="logo" class="logo">
-            <a href="/" class="btn" id="home">처음으로</a>
-        </header>
-        <% if (errorMessage) { %>
-            <div class="user-message user-message-error"><%= errorMessage %></div>
-        <% } %>
         <div class="box">
+            
+            <script src="/js/order.js"></script>
+
+            <% if (errorMessage) { %>
+                <div class="user-message user-message-error"><%= errorMessage %></div>
+            <% } %>
             <aside class="menubar">
                 <div class="grid_item">
                     <form action="/vending-sort-by-tag" method="post">
-                        <button class="btn" type="submit">두통</button>
-                        <input type="hidden" name="medicineTag" value="headache">
-                    </form>
-                </div>
-                <div class="grid_item">
-                    <form action="/vending-sort-by-tag" method="post">
-                        <button class="btn" type="submit">치통</button>
-                        <input type="hidden" name="medicineTag" value="toothache">
-                    </form>
-                </div>
-                <div class="grid_item">
-                    <form action="/vending-sort-by-tag" method="post">
-                        <button class="btn" type="submit">복통</button>
-                        <input type="hidden" name="medicineTag" value="stomachache">
-                    </form>
-                </div>
-                <div class="grid_item">
-                    <form action="/vending-sort-by-tag" method="post">
-                        <button class="btn" type="submit">모두</button>
+                        <button class="btn" id="btn_menu" type="submit">모두</button>
                         <input type="hidden" name="medicineTag" value="all">
                     </form>
                 </div>
+
+                <div class="grid_item">
+                    <form action="/vending-sort-by-tag" method="post">
+                        <button class="btn" id="btn_menu" type="submit">두통</button>
+                        <input type="hidden" name="medicineTag" value="headache">
+                    </form>
+                </div>
+
+                <div class="grid_item">
+                    <form action="/vending-sort-by-tag" method="post">
+                        <button class="btn" id="btn_menu" type="submit">치통</button>
+                        <input type="hidden" name="medicineTag" value="toothache">
+                    </form>
+                </div>
+
+                <div class="grid_item">
+                    <form action="/vending-sort-by-tag" method="post">
+                        <button class="btn" id="btn_menu" type="submit">복통</button>
+                        <input type="hidden" name="medicineTag" value="stomachache">
+                    </form>
+                </div>
+            
             </aside>
+
+            <a href="/" class="prev" id="prev_vending">></a>
+
             <aside class="sidebar">
                 <div>
                     <% cartMedicines.forEach(cartMedi => {%>
                         <div>
-                            <h2 class="medicine__name"><%= cartMedi.medicineId.name %> <%= cartMedi.quantity %></h2>
+                            <h3 class="medicine__name"><%= cartMedi.medicineId.name %> <%= cartMedi.quantity %></h3>
                             <form action="/vending-remove-from-cart" method="post">
-                                <button class="btn" type="submit">Delete Medicine</button>
+                                <button class="btn" type="submit">삭제</button>
                                 <input type="hidden" name="medicineIdFromCart" value="<%= cartMedi.medicineId._id %>">
                             </form>
                         </div>
@@ -55,13 +59,16 @@
                     <form action="/vending-clear-cart" method="post">
                         <button id="ok">결제하기</button>
                     </form>
-                    <div id="cancel">취소하기</div>
+                    <form action="/vending-clear-cart" method="post">
+                        <button id="cancel">취소하기</button>
+                    </form>
                 </div>
             </aside>
+            
             <div class="list">
                 <% medicines.forEach(medi => {%>
                     <% if (medi.medicineId.category.includes(category)) { %>
-                    <article class="card medicine-item">
+                    <article class="card_medicine_item">
                         <header class="card__header">
                             <h1 class="medicine__name"><%= medi.medicineId.name %></h1>
                         </header>
@@ -70,7 +77,7 @@
                                 alt="<%= medi.medicineId.name %>">
                         </div>
                         <div class="card__content">
-                            <h2 class="medicine__price"><%= medi.medicineId.price %> \</h2>
+                            <h2 class="medicine__price"><%= medi.medicineId.price %></h2>
                             <p class="medicine__description">
                                 <%= medi.quantity %> 개<br>
                                 <%= medi.medicineId.description %>

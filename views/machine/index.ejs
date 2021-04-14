@@ -1,8 +1,10 @@
 <%- include('../includes/head.ejs') %>      
     <body>
-        <header>
-            <img src="/images/logo.png" alt="logo" class="logo">
-        </header>
-        <a href="vending" class="btn" id="option">자판기</a>
-        <a href="pharmacist" class="btn" id="option">영상통화</a>
+        <div class="box">
+            <header style="text-align: center;">
+                <img src="/images/logo.png" alt="logo" class="logo">
+            </header>
+            <a href="vending" class="slide" id="slide_left">자판기 < </a>
+            <a href="pharmacist" class="slide" id="slide_right"> > 약사와 상담</a>
+        </div>
 <%- include('../includes/end.ejs') %>     
