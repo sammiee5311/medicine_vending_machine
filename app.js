@@ -10,6 +10,7 @@ const PORT = 3000;
 const errorController = require('./controllers/error');
 const sequelize = require('./util/database');
 const Machine = require('./models/database').Machine;
+var cors = require('cors')
 
 const app = express();
 
@@ -21,8 +22,9 @@ const externalMedRoutes = require('./routes/externalMedicalSupplies');
 const generalMedRoutes = require('./routes/generalMedicine');
 const adminRoutes = require('./routes/admin');
 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors())
 
 app.use((req, res, next) => {
     Machine.findById(machineId)

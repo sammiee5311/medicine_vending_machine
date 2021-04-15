@@ -10,11 +10,13 @@ router.get('/', externalMed.indexPage);
 
 router.get('/vending', externalMed.getMedicineList);
 
-router.post('/vending-add-to-cart', externalMed.postCart);
+router.patch('/vending-add-medicine-in-cart/:medicineId', externalMed.patchMedicineInCart);
 
-router.post('/vending-remove-from-cart', externalMed.postRemoveFromCart)
+router.delete('/vending-delete-medicine-from-cart/:medicineId', externalMed.deleteMedicineFromCart);
 
-router.post('/vending-clear-cart', externalMed.postOrder);
+router.get('/vending-clear-cart', externalMed.postOrder);
+
+router.put('/vending-order-medicine', externalMed.getOrderPopup);
 
 router.post('/vending-sort-by-tag', externalMed.postGetMedicinesSortByTag);
 

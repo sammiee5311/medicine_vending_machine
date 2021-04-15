@@ -34,11 +34,6 @@ const machineSchema = new Schema({
               quantity: { type: Number, required: true}
           }
       ]
-  },
-
-  sortByMedicine: {
-    type: String,
-    required: true
   }
 });
 
@@ -152,14 +147,12 @@ machineSchema.methods.addMedicine = function(medicineInfo, targetName, targetQua
 }
 
 machineSchema.methods.addToCart = function(medicineId){
-  let newQuantity = 1;
   const medicineIndex = this.cart.medicines.findIndex(medi => {
       return medi.medicineId.toString() === medicineId._id.toString();
   });
   const updatedCartItems = [...this.cart.medicines];
   if (medicineIndex >= 0) {
-      newQuantity = this.cart.medicines[medicineIndex].quantity + 1;
-      updatedCartItems[medicineIndex].quantity = newQuantity;
+    return null;
   }   
   else {
     updatedCartItems.push({

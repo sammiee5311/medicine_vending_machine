@@ -2,11 +2,6 @@ const Database = require('../models/database');
 const Machine = require('../models/machine');
 const Order = require('../models/order');
 
-const resetTag = (req) => {
-  req.machine.sortByMedicine = "all";
-}
-
-let errorMessage = null;
 let medicineCategory = "all";
 
 exports.indexPage = (req, res, next) =>{
@@ -21,22 +16,17 @@ exports.getMedicineList = (req, res, next) =>{
     .populate('medicines.medicineId cart.medicines.medicineId')
     .execPopulate()
     .then(machine => {
-        let price = 0;
-        cartMedicines = machine.cart.medicines;
         const medicines = machine.medicines;
-        cartMedicines.forEach(medicine => {
-            price += medicine.quantity * medicine.medicineId.price;
-        });
-        console.log(medicines);
         return res.render('machine/vending', {
             medicines: medicines,
-            cartMedicines: cartMedicines,
             category: medicineCategory,
-            price: price,
             pageTitle: 'machine',
             path: '/vending',
-            errorMessage: errorMessage
         });
+    })
+    .then(() => {
+      req.machine.cart.medicines = [];
+      return req.machine.save();
     })
     .then(() => {
       errorMessage = null;
@@ -49,46 +39,62 @@ exports.getMedicineList = (req, res, next) =>{
 exports.postGetMedicinesSortByTag = (req, res, next) =>{
   medicineCategory = req.body.medicineTag;
   res.redirect('/vending');
-  // const medicineTag = req.body.medicineTag;
-  // req.machine.sortByMedicine = medicineTag;
-  // req.machine.save(err => {
-  //   res.redirect('/vending');
-  // });
 }
 
-exports.postCart = (req, res, next) => {
-    const medicineId = req.body.medicineId;
-    Database.Medicine.findById(medicineId)
-      .then(medicine => {
-        const idx = req.machine.medicines.findIndex(medi => {
-          return medi.medicineId.toString() === medicine._id.toString();
-        });
-        if (req.machine.medicines[idx].quantity < 1){
-          errorMessage = "물품이 없습니다.";
-          return res.redirect('/vending');
-        }
-        req.machine.addToCart(medicine);
-        return res.redirect('/vending');
-      })
-      .catch(err => {
-        console.log(err);
+exports.patchMedicineInCart = (req, res, next) => {
+  const medicineId = req.params.medicineId;
+  let errorMessage = null;
+  let addedMedicine;
+
+  Database.Medicine.findById(medicineId)
+    .then(medicine => {
+      const idx = req.machine.medicines.findIndex(medi => {
+        return medi.medicineId.toString() === medicine._id.toString();
       });
+      if (req.machine.medicines[idx].quantity < 1){
+        flag = false;
+        errorMessage = "물품이 없습니다.";
+      }
+      else{
+        addedMedicine = medicine;
+        return req.machine.addToCart(medicine); 
+      }
+    })
+    .then(result => {
+      if(!result && !errorMessage){
+        errorMessage = '물품이 장바구니에 있습니다.';
+        res.status(200).json([null, errorMessage]);
+      } else
+        res.status(200).json([addedMedicine, errorMessage]);
+    })
+    .catch(err => {
+      res.status(500).json({message: 'Fail.'});
+    });
 };
 
-exports.postRemoveFromCart = (req, res, next) => {
-    const medicineId = req.body.medicineIdFromCart;
+exports.deleteMedicineFromCart = (req, res, next) => {
+  const medicineId = req.params.medicineId;
+  let price = 0;
+  Database.Medicine.findById(medicineId)
+  .then(medicine => {
+    return price = medicine.price;
+  })
+  .then(result => {
     req.machine
-        .removeFromCart(medicineId)
-        .then(result => {
-            res.redirect('/vending');
-        })
-        .catch(err => 
-            console.log(err)
-        );
+    .removeFromCart(medicineId)
+    .then(result => {
+      res.status(200).json({price: price});
+    })
+    .catch(err => 
+        console.log(err)
+    );
+  })
+  .catch(err => 
+    console.log(err)
+  );
 }
 
 exports.postOrder = (req, res, next) => {
-  // resetTag(req);
   medicineCategory = "all";
   req.machine
     .populate('cart.medicines.medicineId')
@@ -111,7 +117,21 @@ exports.postOrder = (req, res, next) => {
     .then(() => {
       Machine.dischargeMedicines();
       Machine.resetMedicines();
-      res.redirect('/vending');
+      res.redirect('/');
     })
     .catch(err => console.log(err));
 };
+
+exports.getOrderPopup = (req, res, next) => {
+  req.machine
+  .populate('cart.medicines.medicineId')
+  .execPopulate()
+  .then(machine => {
+      let totalPrice = 0;
+      const orderMedicines = machine.cart.medicines.map(medi =>{
+        totalPrice += medi.medicineId.price;
+        return {quantity: medi.quantity, medicine: { ...medi.medicineId._doc }}
+      });
+      res.status(200).json(orderMedicines);
+  })
+}
