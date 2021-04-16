@@ -12,23 +12,20 @@
       
       <a href="/" class="prev" id="prev_pharmacist"><</a>
 
-      <div class="video">
-        <% if (isCallButtonClicked) { %>
-        <iframe src="https://localhost:8080/" allow="geolocation; microphone; camera" style="width:300px; height:300px; margin:1%"></iframe>
-        <iframe src="https://localhost:8080/" allow="geolocation; microphone; camera" style="width:300px; height:300px; margin:1%"></iframe>
-        <% } %>
+      <div id= "video" class="video">
       </div>
             
       <form action="/pharmacist-call" method="post" class="telephone">
-        <button class="telephone" id="telephone_up">영상통화</button>
+        <img src="images/telephone_up.png" type="button" onclick="callPharmacist(this)" class="telephone_image">
         <input type="hidden" name="callSignal">
       </form>
       <form action="/pharmacist-end-call" method="post" class="telephone" >
-        <button class="telephone" id="telephone_down">통화종료</button>
+        <img src="images/telephone_down.png" type="button" onclick="endCallPharmacist(this)"  class="telephone_image">
         <input type="hidden" name="callEndSignall">
       </form>
 
     </div>
+    <script src="/js/pharmacistOrder.js"></script>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/socket.io.js"></script> -->

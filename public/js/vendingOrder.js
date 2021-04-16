@@ -3,7 +3,6 @@ let currentPrice = 0;
 const deleteFromCart = (btn) => {
     const medicineId = btn.parentNode.querySelector('[name=medicineId]').value;
     const medicineDIV = btn.closest('div');
-    console.log(medicineDIV);
     
     fetch('/vending-delete-medicine-from-cart/' + medicineId, {
         method: 'DELETE',
@@ -16,7 +15,6 @@ const deleteFromCart = (btn) => {
         .then(dataFromServer => {
             medicineDIV.parentNode.removeChild(medicineDIV);
             currentPrice -= dataFromServer.price;
-            console.log(dataFromServer.price);
             price.innerHTML = currentPrice;
         })
         .catch(err => {
@@ -44,7 +42,7 @@ const addMedicineInCart = (btn) => {
                 currentPrice += addedMedicine.price;
                 updatedHTML = 
                     '<div>'+
-                        '<h3 class="medicine__name">'+ addedMedicine.name + ' ' + 1 + '</h3>'+
+                        '<h3 class="medicine__name">'+ addedMedicine.name + '</h3>'+
                         '<input type="hidden" name="medicineId" value="' + addedMedicine._id + '">'+
                         '<button class="btn" type="button" onclick="deleteFromCart(this)">삭제</button>'+
                     '</div>';

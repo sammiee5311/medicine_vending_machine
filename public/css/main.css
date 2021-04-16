@@ -96,7 +96,7 @@ a {
 }
 
 .card_medicine_item {
-    width: 100px;
+    width: 120px;
     height: 300px;
     margin: 0 3%;
     float: left;
@@ -251,6 +251,11 @@ margin: 0 0.25rem;
     border: 0px;
     border-radius: 15px;
 }
+
+.telephone_image {
+    width: 60px
+}
+
 
 #ok {background-color: #5DADE2;}
 #cancel {background-color: #E74C3C;}
