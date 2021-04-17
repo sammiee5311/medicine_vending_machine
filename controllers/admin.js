@@ -43,17 +43,19 @@ exports.getAddMedicineInMachine = (req, res, next) => {
 
 exports.postAddMedicineInMachine = (req, res, next) => {
     const name = 'A';
-    const imageUrl = '';
+    const imageUrl = 'images/gagrin.jpg';
     const price = 6.99;
     const description = 'digestion';
     const dosageMethod = "Take one pill a day.";
+    const category = 'all,toothache';
 
     const medicine = new Database.Medicine({ 
         name: name, 
         price: price, 
         description: description, 
         dosageMethod: dosageMethod,
-        imageUrl: imageUrl
+        imageUrl: imageUrl,
+        category: category
      });
 
      medicine

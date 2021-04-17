@@ -14,18 +14,33 @@
 
       <div id= "video" class="video">
       </div>
+
+      <div class="payment">
+        <a id="ok" href = "javascript:void(0)" 
+        onclick = "orderMedicines()">구매하기</a></p>
+        <div id="light" class="white_content">
+        <a href = "javascript:void(0)" 
+        onclick = "cancelOrderMedicines()">취소하기</a></div>
+        <div id="fade" class="black_overlay"></div>
+        <form action="/" method="post">
+            <button id="cancel">취소하기</button>
+        </form>
+    </div>
             
       <form action="/pharmacist-call" method="post" class="telephone">
         <img src="images/telephone_up.png" type="button" onclick="callPharmacist(this)" class="telephone_image">
         <input type="hidden" name="callSignal">
       </form>
+      
       <form action="/pharmacist-end-call" method="post" class="telephone" >
         <img src="images/telephone_down.png" type="button" onclick="endCallPharmacist(this)"  class="telephone_image">
         <input type="hidden" name="callEndSignall">
       </form>
 
     </div>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="/js/pharmacistOrder.js"></script>
+    <script src="/js/checkout.js"></script>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/socket.io.js"></script> -->

@@ -14,9 +14,9 @@ router.patch('/vending-add-medicine-in-cart/:medicineId', externalMed.patchMedic
 
 router.delete('/vending-delete-medicine-from-cart/:medicineId', externalMed.deleteMedicineFromCart);
 
-router.get('/vending-clear-cart', externalMed.postOrder);
+router.get('/clear-cart', externalMed.postOrder);
 
-router.put('/vending-order-medicine', externalMed.getOrderPopup);
+router.put('/order-medicine', externalMed.getOrderPopup);
 
 router.post('/vending-sort-by-tag', externalMed.postGetMedicinesSortByTag);
 

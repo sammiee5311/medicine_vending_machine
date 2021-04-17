@@ -57,8 +57,15 @@ mongoose.connect(mongoURL, {useNewUrlParser: true, useUnifiedTopology: true})
           machine.save();
         }
       });
-    app.listen(PORT);
+    const server = app.listen(PORT);
     console.log('Connected!');
+    const io = require('./socket').init(server);
+    io.on('connection', socket => {
+      console.log('Client connected');
+      io.emit('posts', { action: 'create', roomName: 'Pharmacist1'});
+      io.emit('medicineList', ['606b0f628393482c4ccec9f8', '606b0f882c24732844a653c6']);
+    });
+    
 })
 .catch(err =>{
     console.log(err);

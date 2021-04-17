@@ -2,53 +2,86 @@ const Database = require('../models/database');
 const Machine = require('../models/machine');
 const Order = require('../models/order');
 
+const io = require('../socket');
+
+const sleep = ms => {
+    const wakeUpTime = Date.now() + ms
+    while (Date.now() < wakeUpTime) {}
+};
+
 exports.getIndexPage = (req, res, next) =>{
     res.render('machine/pharmacist', {
         pageTitle: 'pharmacist',
         isCallButtonClicked: false,
         path: '/pharmacist'
     })
-}
-
-exports.postCallPharmacist = (req, res, next) => {
-    res.render('machine/pharmacist', {
-        pageTitle: 'pharmacist',
-        isCallButtonClicked: true,
-        path: '/pharmacist'
-    })
-}
-
-exports.postEndCallPharmacist = (req, res, next) => {
-    res.render('machine/pharmacist', {
-        pageTitle: 'pharmacist',
-        isCallButtonClicked: false,
-        path: '/pharmacist'
-    })
-}
-
-exports.postConnectWebSocketIo = (req, res, next) => {
-    let medicineIds = req.body.medicineIds;
-    medicineIds = medicineIds.split(',');
-    Database.Medicine.find({_id: medicineIds})
-    .then(medicineInfos => {
-        const medicines = medicineInfos.map(info => {
-            return {quantity: 1, medicine: info._doc}
-        });
-        const order = new Order({
-            machine:{ machineId: req.machine },
-            isCallButtonClicked: true,
-            medicines: medicines
-        });
-        Machine.addMedicines(medicines);
-        return order.save();
-    })
-    .then(result => {
-        Machine.dischargeMedicines();
-        Machine.resetMedicines();
-        res.redirect('/vending');
-    })
-    .catch(err => {
-        console.log(err);
-    })
 };
 
+exports.postMedicineInCart = async (req, res, next) => {
+    const medicineIds = req.params.medicineIds.split(',');
+    const medicinesInMachine = req.machine.medicines;
+    let medicineList = [];
+
+    try{
+        const medicines = await Database.Medicine.find({ '_id': { $in: medicineIds } });
+        medicines.forEach(async medicine => {
+            try{
+                const idx = medicinesInMachine.findIndex(medi => {
+                    return medi.medicineId.toString() === medicine._id.toString();
+                });            
+                if (medicinesInMachine[idx].quantity) {
+                    medicineList.push(medicine);
+                    await req.machine.addToCart(medicine);
+                    sleep(1000);
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        });
+        res.status(200).json(medicineList);
+
+    } catch (err){
+        res.status(500).json({message: 'Fail'});
+    }
+};
+
+exports.postOrder = async (req, res, next) => {
+    const curMachine = req.machine;
+  
+    try{
+      const machinByPopulatedMedicines =  await curMachine.populate('cart.medicines.medicineId').execPopulate();
+      const medicines = machinByPopulatedMedicines.cart.medicines.map(medi => {
+        return {quantity: medi.quantity, medicine: { ...medi.medicineId._doc }}
+      });
+      const order = new Order({
+        machine:{ machineId: curMachine },
+        medicines: medicines
+      });
+      
+      MachineModule.addMedicines(medicines);
+      
+      const result = await order.save();
+  
+      curMachine.clearCart();
+      MachineModule.dischargeMedicines();
+      MachineModule.resetMedicines();
+      res.redirect('/');
+  
+    } catch (err){
+      console.log(err);
+    }
+};
+
+exports.getOrderPopup = async (req, res, next) => {
+    const curMachine = req.machine;
+
+    try{
+        const machinByPopulatedMedicines = await curMachine.populate('cart.medicines.medicineId').execPopulate();
+        const orderMedicines = machinByPopulatedMedicines.cart.medicines.map(medi => {
+            return {quantity: medi.quantity, medicine: { ...medi.medicineId._doc }};
+        })
+        res.status(200).json(orderMedicines);
+    } catch (err) {
+        console.log(err);
+    }
+};

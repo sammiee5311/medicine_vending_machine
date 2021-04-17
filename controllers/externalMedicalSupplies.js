@@ -1,5 +1,5 @@
 const Database = require('../models/database');
-const Machine = require('../models/machine');
+const MachineModule = require('../models/machine');
 const Order = require('../models/order');
 
 let medicineCategory = "all";
@@ -8,130 +8,119 @@ exports.indexPage = (req, res, next) =>{
   res.render('machine/index', {
       pageTitle: 'machine',
       path: '/index'
-  })
+  });
 }
 
-exports.getMedicineList = (req, res, next) =>{
-    req.machine
-    .populate('medicines.medicineId cart.medicines.medicineId')
-    .execPopulate()
-    .then(machine => {
-        const medicines = machine.medicines;
-        return res.render('machine/vending', {
-            medicines: medicines,
-            category: medicineCategory,
-            pageTitle: 'machine',
-            path: '/vending',
-        });
-    })
-    .then(() => {
-      req.machine.cart.medicines = [];
-      return req.machine.save();
-    })
-    .then(() => {
-      errorMessage = null;
-    })
-    .catch(err =>{
-        console.log(err);
-    });  
+exports.getMedicineList = async (req, res, next) =>{
+  const curMachine = req.machine;
+
+  try{
+    const machinByPopulatedMedicines = await curMachine
+                    .populate('medicines.medicineId cart.medicines.medicineId')
+                    .execPopulate();
+    const medicines = machinByPopulatedMedicines.medicines;
+
+    res.render('machine/vending', {
+      medicines: medicines,
+      category: medicineCategory,
+      pageTitle: 'machine',
+      path: '/vending'
+    });
+
+    curMachine.cart.medicines = [];
+    curMachine.save();
+    errorMessage = null;
+    
+  } catch(err){
+    console.log(err);
+  }
 }
 
 exports.postGetMedicinesSortByTag = (req, res, next) =>{
-  medicineCategory = req.body.medicineTag;
+  medicineCategory = req.body.medicineTag; 
   res.redirect('/vending');
 }
 
-exports.patchMedicineInCart = (req, res, next) => {
+exports.patchMedicineInCart = async (req, res, next) => {
   const medicineId = req.params.medicineId;
-  let errorMessage = null;
+  const medicinesInMachine = req.machine.medicines;
+  let errorMessage = null, result = null;
   let addedMedicine;
-
-  Database.Medicine.findById(medicineId)
-    .then(medicine => {
-      const idx = req.machine.medicines.findIndex(medi => {
-        return medi.medicineId.toString() === medicine._id.toString();
-      });
-      if (req.machine.medicines[idx].quantity < 1){
-        flag = false;
-        errorMessage = "물품이 없습니다.";
-      }
-      else{
-        addedMedicine = medicine;
-        return req.machine.addToCart(medicine); 
-      }
-    })
-    .then(result => {
-      if(!result && !errorMessage){
-        errorMessage = '물품이 장바구니에 있습니다.';
-        res.status(200).json([null, errorMessage]);
-      } else
-        res.status(200).json([addedMedicine, errorMessage]);
-    })
-    .catch(err => {
-      res.status(500).json({message: 'Fail.'});
+  
+  try{
+    const medicine = await Database.Medicine.findById(medicineId);
+    const idx = medicinesInMachine.findIndex(medi => {
+      return medi.medicineId.toString() === medicine._id.toString();
     });
+
+    if (medicinesInMachine[idx].quantity < 1) errorMessage = "물품이 없습니다.";
+    else{
+      addedMedicine = medicine;
+      result = await req.machine.addToCart(medicine); 
+    }
+
+    if(!result && !errorMessage){
+      errorMessage = '물품이 장바구니에 있습니다.';
+      res.status(200).json([null, errorMessage]);
+    } else res.status(200).json([addedMedicine, errorMessage]);
+
+  } catch (err){
+    res.status(500).json({message: 'Fail'});
+  }
 };
 
-exports.deleteMedicineFromCart = (req, res, next) => {
+exports.deleteMedicineFromCart = async (req, res, next) => {
   const medicineId = req.params.medicineId;
-  let price = 0;
-  Database.Medicine.findById(medicineId)
-  .then(medicine => {
-    return price = medicine.price;
-  })
-  .then(result => {
-    req.machine
-    .removeFromCart(medicineId)
-    .then(result => {
-      res.status(200).json({price: price});
-    })
-    .catch(err => 
-        console.log(err)
-    );
-  })
-  .catch(err => 
-    console.log(err)
-  );
+  try{
+    const medicine = await Database.Medicine.findById(medicineId);
+    const price = medicine.price;
+
+    await req.machine.removeFromCart(medicineId);
+
+    res.status(200).json({price: price});
+  } catch (err){
+    console.log(err);
+  }
 }
 
-exports.postOrder = (req, res, next) => {
-  medicineCategory = "all";
-  req.machine
-    .populate('cart.medicines.medicineId')
-    .execPopulate()
-    .then(machine => {
-      const medicines = machine.cart.medicines.map(medi =>{
-        return {quantity: medi.quantity, medicine: { ...medi.medicineId._doc }}
-      });
-      const order = new Order({
-        machine:{ machineId: req.machine },
-        medicines: medicines
-      });
-      Machine.addMedicines(medicines);
-      // req.machine.changeMedicineStock(medicines);
-      return order.save();
-    })
-    .then(result => {
-      return req.machine.clearCart();
-    })
-    .then(() => {
-      Machine.dischargeMedicines();
-      Machine.resetMedicines();
-      res.redirect('/');
-    })
-    .catch(err => console.log(err));
+exports.postOrder = async (req, res, next) => {
+  const curMachine = req.machine;
+
+  try{
+    medicineCategory = "all";
+    const machinByPopulatedMedicines =  await curMachine.populate('cart.medicines.medicineId').execPopulate();
+    const medicines = machinByPopulatedMedicines.cart.medicines.map(medi => {
+      return {quantity: medi.quantity, medicine: { ...medi.medicineId._doc }}
+    });
+    const order = new Order({
+      machine:{ machineId: curMachine },
+      medicines: medicines
+    });
+    
+    MachineModule.addMedicines(medicines);
+    
+    const result = await order.save();
+
+    curMachine.clearCart();
+    MachineModule.dischargeMedicines();
+    MachineModule.resetMedicines();
+    res.redirect('/');
+
+  } catch (err){
+    console.log(err);
+  }
 };
 
-exports.getOrderPopup = (req, res, next) => {
-  req.machine
-  .populate('cart.medicines.medicineId')
-  .execPopulate()
-  .then(machine => {
-      let totalPrice = 0;
-      const orderMedicines = machine.cart.medicines.map(medi =>{
-        totalPrice += medi.medicineId.price;
-        return {quantity: medi.quantity, medicine: { ...medi.medicineId._doc }}
-      });
-      res.status(200).json(orderMedicines);
-  })
-}
+exports.getOrderPopup = async (req, res, next) => {
+  const curMachine = req.machine;
+  
+  try{
+    const machinByPopulatedMedicines = await curMachine.populate('cart.medicines.medicineId').execPopulate();
+    const orderMedicines = machinByPopulatedMedicines.cart.medicines.map(medi => {
+      return {quantity: medi.quantity, medicine: { ...medi.medicineId._doc }};
+    })
+    res.status(200).json(orderMedicines);
+  } catch (err) {
+    console.log(err);
+  }
+};

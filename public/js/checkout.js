@@ -1,23 +1,22 @@
 const checkout = (btn) => {
-    window.location.href="/vending-clear-cart";
+    window.location.href="/clear-cart";
 }
 
 const orderMedicines = () => {
     console.log('결제중..');
-    fetch('/vending-order-medicine', {
+    fetch('/order-medicine', {
         method: 'PUT',
         headers: {
             'Content-type': 'application/json; charset=UTF-8'
         }})
         .then(result => {
+            console.log(result);
             return result.json();
         })
         .then(dataFromServer => {
-            console.log(dataFromServer);
             let updatedHTML = ''
             let price = 0;
             dataFromServer.forEach(medicinesInfo => {
-                console.log(medicinesInfo.medicine);
                 price += medicinesInfo.medicine.price;
                 updatedHTML += 
                     '<ul>' +
@@ -32,7 +31,7 @@ const orderMedicines = () => {
                 '<button class="btn" type="button" onclick="checkout()">결제하기</button>' +
                 '<button class="btn" type="button" onclick="cancelOrderMedicines()">취소하기</button>';  
 
-            light.innerHTML = updatedHTML
+            light.innerHTML = updatedHTML;
 
             document.getElementById('light').style.display='block';
             document.getElementById('fade').style.display='block';
