@@ -1,23 +1,22 @@
-const path = require('path');
+import express from 'express';
 
-const express = require('express');
-
-const externalMed = require('../controllers/externalMedicalSupplies');
+import { indexPage, getMedicineList, postGetMedicinesSortByTag, patchMedicineInCart, deleteMedicineFromCart, postOrder, getOrderPopup } from '../controllers/externalMedicalSupplies';
 
 const router = express.Router(); 
 
-router.get('/', externalMed.indexPage);
+router.get('/', indexPage);
 
-router.get('/vending', externalMed.getMedicineList);
+router.get('/vending', getMedicineList);
 
-router.patch('/vending-add-medicine-in-cart/:medicineId', externalMed.patchMedicineInCart);
+router.patch('/vending-add-medicine-in-cart/:medicineId', patchMedicineInCart);
 
-router.delete('/vending-delete-medicine-from-cart/:medicineId', externalMed.deleteMedicineFromCart);
+router.delete('/vending-delete-medicine-from-cart/:medicineId', deleteMedicineFromCart);
 
-router.get('/clear-cart', externalMed.postOrder);
+router.get('/vending-clear-cart', postOrder);
 
-router.put('/order-medicine', externalMed.getOrderPopup);
+router.put('/vending-order-medicine', getOrderPopup);
 
-router.post('/vending-sort-by-tag', externalMed.postGetMedicinesSortByTag);
+router.post('/vending-sort-by-tag', postGetMedicinesSortByTag);
 
-module.exports = router;
+
+export default router;

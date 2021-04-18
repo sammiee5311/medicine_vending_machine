@@ -1,17 +1,15 @@
-const path = require('path');
+import express from 'express';
 
-const express = require('express');
-
-const generalMed = require('../controllers/generalMedicine');
+import { getIndexPage, postMedicineInCart, postOrder, getOrderPopup} from '../controllers/generalMedicine';
 
 const router = express.Router();
 
-router.get('/pharmacist', generalMed.getIndexPage);
+router.get('/pharmacist', getIndexPage);
 
-router.get('/pharmacist-get-medicines/:medicineIds', generalMed.postMedicineInCart);
+router.get('/pharmacist-get-medicines/:medicineIds', postMedicineInCart);
 
-router.get('/clear-cart', generalMed.postOrder);
+router.get('/pharmacist-clear-cart', postOrder);
 
-router.put('/order-medicine', generalMed.getOrderPopup);
+router.put('/pharmacist-order-medicine', getOrderPopup);
 
-module.exports = router;
+export default router;

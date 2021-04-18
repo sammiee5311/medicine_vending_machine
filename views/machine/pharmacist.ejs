@@ -16,8 +16,9 @@
       </div>
 
       <div class="payment">
-        <a id="ok" href = "javascript:void(0)" 
-        onclick = "orderMedicines()">구매하기</a></p>
+        <input type="hidden" name="ok" value="pharmacist">
+        <a id="ok" href = "javascript:void(0)"
+        onclick = "orderMedicines(this)">구매하기</a></p>
         <div id="light" class="white_content">
         <a href = "javascript:void(0)" 
         onclick = "cancelOrderMedicines()">취소하기</a></div>

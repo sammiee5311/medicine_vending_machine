@@ -1,10 +1,12 @@
 const checkout = (btn) => {
-    window.location.href="/clear-cart";
+    const url = btn.parentNode.querySelector('[name=ok]').value;
+    window.location.href='/'+url+'-clear-cart';
 }
 
-const orderMedicines = () => {
+const orderMedicines = (btn) => {
+    const url = btn.parentNode.querySelector('[name=ok]').value;
     console.log('결제중..');
-    fetch('/order-medicine', {
+    fetch('/'+url+'-order-medicine', {
         method: 'PUT',
         headers: {
             'Content-type': 'application/json; charset=UTF-8'
@@ -16,6 +18,7 @@ const orderMedicines = () => {
         .then(dataFromServer => {
             let updatedHTML = ''
             let price = 0;
+            console.log();
             dataFromServer.forEach(medicinesInfo => {
                 price += medicinesInfo.medicine.price;
                 updatedHTML += 
@@ -28,7 +31,8 @@ const orderMedicines = () => {
                 '<div>' +
                 '<h2>총 가격: ' + price  + '</h2>' +
                 '</div>' +
-                '<button class="btn" type="button" onclick="checkout()">결제하기</button>' +
+                '<input type="hidden" name="ok" value='+url+'>'+
+                '<button class="btn" type="button" onclick="checkout(this)">결제하기</button>' +
                 '<button class="btn" type="button" onclick="cancelOrderMedicines()">취소하기</button>';  
 
             light.innerHTML = updatedHTML;

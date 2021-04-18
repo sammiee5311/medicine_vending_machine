@@ -4,14 +4,14 @@ const Order = require('../models/order');
 
 let medicineCategory = "all";
 
-exports.indexPage = (req, res, next) =>{
+export const indexPage = (req, res, next) =>{
   res.render('machine/index', {
       pageTitle: 'machine',
       path: '/index'
   });
 }
 
-exports.getMedicineList = async (req, res, next) =>{
+export const getMedicineList = async (req, res, next) =>{
   const curMachine = req.machine;
 
   try{
@@ -29,19 +29,18 @@ exports.getMedicineList = async (req, res, next) =>{
 
     curMachine.cart.medicines = [];
     curMachine.save();
-    errorMessage = null;
     
   } catch(err){
     console.log(err);
   }
 }
 
-exports.postGetMedicinesSortByTag = (req, res, next) =>{
+export const postGetMedicinesSortByTag = (req, res, next) =>{
   medicineCategory = req.body.medicineTag; 
   res.redirect('/vending');
 }
 
-exports.patchMedicineInCart = async (req, res, next) => {
+export const patchMedicineInCart = async (req, res, next) => {
   const medicineId = req.params.medicineId;
   const medicinesInMachine = req.machine.medicines;
   let errorMessage = null, result = null;
@@ -64,12 +63,14 @@ exports.patchMedicineInCart = async (req, res, next) => {
       res.status(200).json([null, errorMessage]);
     } else res.status(200).json([addedMedicine, errorMessage]);
 
+    errorMessage = null;
+
   } catch (err){
     res.status(500).json({message: 'Fail'});
   }
 };
 
-exports.deleteMedicineFromCart = async (req, res, next) => {
+export const deleteMedicineFromCart = async (req, res, next) => {
   const medicineId = req.params.medicineId;
   try{
     const medicine = await Database.Medicine.findById(medicineId);
@@ -83,7 +84,7 @@ exports.deleteMedicineFromCart = async (req, res, next) => {
   }
 }
 
-exports.postOrder = async (req, res, next) => {
+export const postOrder = async (req, res, next) => {
   const curMachine = req.machine;
 
   try{
@@ -111,7 +112,7 @@ exports.postOrder = async (req, res, next) => {
   }
 };
 
-exports.getOrderPopup = async (req, res, next) => {
+export const getOrderPopup = async (req, res, next) => {
   const curMachine = req.machine;
   
   try{

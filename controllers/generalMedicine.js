@@ -1,5 +1,5 @@
 const Database = require('../models/database');
-const Machine = require('../models/machine');
+const MachineModule = require('../models/machine');
 const Order = require('../models/order');
 
 const io = require('../socket');
@@ -9,7 +9,7 @@ const sleep = ms => {
     while (Date.now() < wakeUpTime) {}
 };
 
-exports.getIndexPage = (req, res, next) =>{
+export const getIndexPage = (req, res, next) =>{
     res.render('machine/pharmacist', {
         pageTitle: 'pharmacist',
         isCallButtonClicked: false,
@@ -17,7 +17,7 @@ exports.getIndexPage = (req, res, next) =>{
     })
 };
 
-exports.postMedicineInCart = async (req, res, next) => {
+export const postMedicineInCart = async (req, res, next) => {
     const medicineIds = req.params.medicineIds.split(',');
     const medicinesInMachine = req.machine.medicines;
     let medicineList = [];
@@ -31,8 +31,8 @@ exports.postMedicineInCart = async (req, res, next) => {
                 });            
                 if (medicinesInMachine[idx].quantity) {
                     medicineList.push(medicine);
-                    await req.machine.addToCart(medicine);
-                    sleep(1000);
+                    const result = await req.machine.addToCart(medicine);
+                    await sleep(1000);
                 }
             } catch (err) {
                 console.log(err);
@@ -45,7 +45,7 @@ exports.postMedicineInCart = async (req, res, next) => {
     }
 };
 
-exports.postOrder = async (req, res, next) => {
+export const postOrder = async (req, res, next) => {
     const curMachine = req.machine;
   
     try{
@@ -72,7 +72,7 @@ exports.postOrder = async (req, res, next) => {
     }
 };
 
-exports.getOrderPopup = async (req, res, next) => {
+export const getOrderPopup = async (req, res, next) => {
     const curMachine = req.machine;
 
     try{

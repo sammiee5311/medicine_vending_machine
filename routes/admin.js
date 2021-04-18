@@ -1,17 +1,15 @@
-const path = require('path');
+import express from 'express';
 
-const express = require('express');
-
-const admin = require('../controllers/admin');
+import { getAddMedicine, postAddMedicine, getAddMedicineInMachine, postAddMedicineInMachine } from '../controllers/admin';
 
 const router = express.Router();
 
-router.get('/add-medicine', admin.getAddMedicine);
+router.get('/add-medicine', getAddMedicine);
 
-router.post('/add-medicine', admin.postAddMedicine);
+router.post('/add-medicine', postAddMedicine);
 
-router.get('/add-medicine-in-machine', admin.getAddMedicineInMachine);
+router.get('/add-medicine-in-machine', getAddMedicineInMachine);
 
-router.post('/add-medicine-in-machine', admin.postAddMedicineInMachine);
+router.post('/add-medicine-in-machine', postAddMedicineInMachine);
 
-module.exports = router;
+export default router;
