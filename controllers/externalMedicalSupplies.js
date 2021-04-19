@@ -13,6 +13,9 @@ export const indexPage = (req, res, next) =>{
 
 export const getMedicineList = async (req, res, next) =>{
   const curMachine = req.machine;
+  const categories = {
+    categoryInKorean: ['모두','두통','치통','복통'], 
+    categoryInEnglish: ['all', 'headache', 'toothache','stomachache']};
 
   try{
     const machinByPopulatedMedicines = await curMachine
@@ -23,6 +26,7 @@ export const getMedicineList = async (req, res, next) =>{
     res.render('machine/vending', {
       medicines: medicines,
       category: medicineCategory,
+      categories: categories,
       pageTitle: 'machine',
       path: '/vending'
     });

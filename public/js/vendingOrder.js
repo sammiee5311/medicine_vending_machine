@@ -64,3 +64,7 @@ const addMedicineInCart = (btn) => {
             console.log(err);
     });
 };
+
+const cancel = () => {
+    window.location.href='/';
+}

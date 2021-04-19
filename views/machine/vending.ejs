@@ -3,33 +3,14 @@
         <div class="box">
             <div id="errorMessage"></div>
             <aside class="menubar">
-                <div class="grid_item">
-                    <form action="/vending-sort-by-tag" method="post">
-                        <button class="btn" id="btn_menu" type="submit">모두</button>
-                        <input type="hidden" name="medicineTag" value="all">
-                    </form>
-                </div>
-
-                <div class="grid_item">
-                    <form action="/vending-sort-by-tag" method="post">
-                        <button class="btn" id="btn_menu" type="submit">두통</button>
-                        <input type="hidden" name="medicineTag" value="headache">
-                    </form>
-                </div>
-
-                <div class="grid_item">
-                    <form action="/vending-sort-by-tag" method="post">
-                        <button class="btn" id="btn_menu" type="submit">치통</button>
-                        <input type="hidden" name="medicineTag" value="toothache">
-                    </form>
-                </div>
-
-                <div class="grid_item">
-                    <form action="/vending-sort-by-tag" method="post">
-                        <button class="btn" id="btn_menu" type="submit">복통</button>
-                        <input type="hidden" name="medicineTag" value="stomachache">
-                    </form>
-                </div>
+                <% for (var i = 0; i < categories.categoryInKorean.length; i++) { %>
+                    <div class="grid_item">
+                        <form action="/vending-sort-by-tag" method="post">
+                            <button class="btn" id="btn_menu" type="submit"><%= categories.categoryInKorean[i]%></button>
+                            <input type="hidden" name="medicineTag" value="<%= categories.categoryInEnglish[i]%>">
+                        </form>
+                    </div>
+                <% }; %>
             
             </aside>
 
@@ -45,15 +26,13 @@
                         0
                     </div>
                     <input type="hidden" name="ok" value="vending">
-                    <a id="ok" name="ok" href = "javascript:void(0)" value="vending" 
-                    onclick = "orderMedicines(this)">구매하기</a></p>
+                    <button id="ok" name="ok" href = "javascript:void(0)" value="vending" 
+                    onclick = "orderMedicines(this)">구매하기</button></p>
                     <div id="light" class="white_content">
                     <a href = "javascript:void(0)" 
                     onclick = "cancelOrderMedicines()">취소하기</a></div>
                     <div id="fade" class="black_overlay"></div>
-                    <form action="/" method="post">
-                        <button id="cancel">취소하기</button>
-                    </form>
+                    <button id="cancel" onclick="cancel()">취소하기</button>
                 </div>
             </aside>
             

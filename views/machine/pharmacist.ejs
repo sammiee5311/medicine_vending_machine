@@ -17,20 +17,18 @@
 
       <div class="payment">
         <input type="hidden" name="ok" value="pharmacist">
-        <a id="ok" href = "javascript:void(0)"
-        onclick = "orderMedicines(this)">구매하기</a></p>
+        <button id="ok" href = "javascript:void(0)"
+        onclick = "orderMedicines(this)">구매하기</button></p>
         <div id="light" class="white_content">
-        <a href = "javascript:void(0)" 
-        onclick = "cancelOrderMedicines()">취소하기</a></div>
+        <button href = "javascript:void(0)" 
+        onclick = "cancelOrderMedicines()">취소하기</button></div>
         <div id="fade" class="black_overlay"></div>
-        <form action="/" method="post">
-            <button id="cancel">취소하기</button>
-        </form>
-    </div>
+        <button id="cancel" onclick="cancel()">취소하기</button>
+      </div>
             
       <form action="/pharmacist-call" method="post" class="telephone">
+        <input type="hidden" name="callSignal" value="1">
         <img src="images/telephone_up.png" type="button" onclick="callPharmacist(this)" class="telephone_image">
-        <input type="hidden" name="callSignal">
       </form>
       
       <form action="/pharmacist-end-call" method="post" class="telephone" >

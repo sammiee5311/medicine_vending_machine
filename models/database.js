@@ -37,6 +37,18 @@ const machineSchema = new Schema({
   }
 });
 
+const pharmacists = new Schema({
+  name : {
+    type: String,
+    required: true
+  },
+
+  isLoggedIn: {
+    type: Boolean,
+    requried: true
+  }
+});
+
 const medicineSchema = new Schema({
   name: { 
     type: String, 
@@ -224,6 +236,7 @@ machineSchema.methods.changeMedicineStock = function(medicineInfos){
 module.exports = {
     Machine: mongoose.model('Machine', machineSchema),
     Video: mongoose.model('Video', videoSchema),
-    Medicine: mongoose.model('Medicine', medicineSchema)
+    Medicine: mongoose.model('Medicine', medicineSchema),
+    Pharmacists: mongoose.model('Pharmacists', pharmacists)
     // pharmacists: Pharmacists
 }

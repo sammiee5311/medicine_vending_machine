@@ -85,3 +85,15 @@ export const getOrderPopup = async (req, res, next) => {
         console.log(err);
     }
 };
+
+export const getPharmacistId = async (req, res, next) => {
+    const pharmacistDBNumber = req.params.pharmacistDBNumber;
+
+    try {
+        const pharmacists = await Database.Pharmacists.find({isLoggedIn: true });
+        const idx = Math.floor(Math.random() * pharmacists.length);
+        res.status(200).json(pharmacists[idx]);
+    } catch (err){
+        console.log(err);
+    }
+}

@@ -14,10 +14,19 @@ export const postAddMedicine = async (req, res, next) => {
     const name = req.body.name;
     const quantity = req.body.quantity;
     try{
-        const medicineInfo = await Database.Medicine.findOne({name:name});
-        const machine = await Database.Machine.findById(medicineId);
-        const result = await req.machine.addMedicine(medicineInfo, name, quantity);
-        res.redirect('/');
+        const pharmacist = new Database.Pharmacists({ 
+            name: '세종대왕',
+            isLoggedIn: true 
+        });
+      
+        pharmacist.save()
+        .then(result => {
+          res.redirect('/');
+        });
+        // const medicineInfo = await Database.Medicine.findOne({name:name});
+        // const machine = await Database.Machine.findById(medicineId);
+        // const result = await req.machine.addMedicine(medicineInfo, name, quantity);
+        // res.redirect('/');
 
     } catch (err) {
         console.log(err);

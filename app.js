@@ -59,10 +59,20 @@ mongoose.connect(mongoURL, {useNewUrlParser: true, useUnifiedTopology: true})
     const server = app.listen(PORT);
     console.log('Connected!');
     const io = require('./socket').init(server);
-    io.on('connection', socket => {
+    const chat = io.on('connection', socket => {
+      
       console.log('Client connected');
-      io.emit('posts', { action: 'create', roomName: 'Pharmacist1'});
-      io.emit('medicineList', ['606b0f628393482c4ccec9f8', '606b0f882c24732844a653c6']);
+      socket.on('group1', data => { // 'join_1' => database #
+        let room = data.room;
+        socket.join(room);
+        // initiate webRTC
+        chat.to(room).emit('checkConnection', 'success');
+      });
+
+      // button clicked
+      // chat.to(room).emit('medicineList', ['606b0f628393482c4ccec9f8', '606b0f882c24732844a653c6']);
+      // socket.emit('message', { action: 'create', roomName: 'Pharmacist1'});
+      // socket.emit('medicineList', ['606b0f628393482c4ccec9f8', '606b0f882c24732844a653c6']);
     });
     
 })

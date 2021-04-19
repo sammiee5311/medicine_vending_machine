@@ -5,40 +5,43 @@ const checkout = (btn) => {
 
 const orderMedicines = (btn) => {
     const url = btn.parentNode.querySelector('[name=ok]').value;
-    console.log('결제중..');
     fetch('/'+url+'-order-medicine', {
         method: 'PUT',
         headers: {
             'Content-type': 'application/json; charset=UTF-8'
         }})
         .then(result => {
-            console.log(result);
             return result.json();
         })
         .then(dataFromServer => {
             let updatedHTML = ''
             let price = 0;
-            console.log();
             dataFromServer.forEach(medicinesInfo => {
                 price += medicinesInfo.medicine.price;
                 updatedHTML += 
                     '<ul>' +
-                        '<li> <h1>' + medicinesInfo.medicine.name + ': 1 개</h1> </li>' +
+                        '<li> <h3>' + medicinesInfo.medicine.name + ': ' + medicinesInfo.medicine.price + ' 원 </h3> </li>' +
                     '</ul>';
             });
 
-            updatedHTML += 
+            if(price > 0) {
+                errorMessage.innerHTML = '';
+                updatedHTML += 
                 '<div>' +
-                '<h2>총 가격: ' + price  + '</h2>' +
+                '<h3>총 가격: ' + price  + ' 원 </h3>' +
                 '</div>' +
                 '<input type="hidden" name="ok" value='+url+'>'+
-                '<button class="btn" type="button" onclick="checkout(this)">결제하기</button>' +
-                '<button class="btn" type="button" onclick="cancelOrderMedicines()">취소하기</button>';  
+                '<button id="ok" onclick="checkout(this)">결제하기</button>' +
+                '<button id="cancel" onclick="cancelOrderMedicines()">취소하기</button>';  
 
-            light.innerHTML = updatedHTML;
+                light.innerHTML = updatedHTML;
 
-            document.getElementById('light').style.display='block';
-            document.getElementById('fade').style.display='block';
+                document.getElementById('light').style.display='block';
+                document.getElementById('fade').style.display='block';
+            } else {
+                const error = '장바구니가 비었습니다.';
+                errorMessage.innerHTML = '<div class="user-message user-message-error">' + error + '</div>';
+            }
         })
         .catch(err => {
             console.log(err);
