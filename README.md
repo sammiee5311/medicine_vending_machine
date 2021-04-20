@@ -6,8 +6,8 @@
 
 ## Images (Examples)
 
-![]('./images/1.png')
-![]('./images/2.png')
+![](./images/1.png)
+![](./images/2.png)
 
 ## File directory tree
 
