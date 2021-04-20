@@ -23,25 +23,32 @@ export const getMedicineList = async (req, res, next) =>{
                     .execPopulate();
     const medicines = machinByPopulatedMedicines.medicines;
 
+    curMachine.cart.medicines = [];
+    curMachine.save();
+
     res.render('machine/vending', {
       medicines: medicines,
-      category: medicineCategory,
       categories: categories,
       pageTitle: 'machine',
       path: '/vending'
     });
-
-    curMachine.cart.medicines = [];
-    curMachine.save();
     
   } catch(err){
     console.log(err);
   }
 }
 
-export const postGetMedicinesSortByTag = (req, res, next) =>{
-  medicineCategory = req.body.medicineTag; 
-  res.redirect('/vending');
+export const patchGetMedicineSortByTag = async (req, res, next) =>{
+  const curMachine = req.machine;
+  try{
+    const machinByPopulatedMedicines = await curMachine
+                    .populate('medicines.medicineId cart.medicines.medicineId')
+                    .execPopulate();
+    const medicines = machinByPopulatedMedicines.medicines;
+    res.status(200).json(medicines);
+  } catch (err){
+    console.log(err);
+  }
 }
 
 export const patchMedicineInCart = async (req, res, next) => {

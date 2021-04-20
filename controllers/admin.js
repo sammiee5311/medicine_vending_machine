@@ -68,22 +68,32 @@ export const postAddMedicineInMachine = (req, res, next) => {
     const dosageMethod = "Take one pill a day.";
     const category = 'all,toothache';
 
-    const medicine = new Database.Medicine({ 
-        name: name, 
-        price: price, 
-        description: description, 
-        dosageMethod: dosageMethod,
-        imageUrl: imageUrl,
-        category: category
-     });
+    const pharmacist = new Database.Pharmacists({ 
+      name: '홍길동',
+      isLoggedIn: false 
+   });
 
-     medicine
-      .save()
-      .then(result => {
-        console.log('Created Medicine');
-        res.redirect('/');
-      })
-      .catch(err => {
-        console.log(err);
-      });
+   pharmacist.save()
+   .then(result => {
+     res.redirect('/');
+   });
+
+    // const medicine = new Database.Medicine({ 
+    //     name: name, 
+    //     price: price, 
+    //     description: description, 
+    //     dosageMethod: dosageMethod,
+    //     imageUrl: imageUrl,
+    //     category: category
+    //  });
+
+    //  medicine
+    //   .save()
+    //   .then(result => {
+    //     console.log('Created Medicine');
+    //     res.redirect('/');
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
 };

@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { indexPage, getMedicineList, postGetMedicinesSortByTag, patchMedicineInCart, deleteMedicineFromCart, postOrder, getOrderPopup } from '../controllers/externalMedicalSupplies';
+import { indexPage, getMedicineList, patchGetMedicineSortByTag, patchMedicineInCart, deleteMedicineFromCart, postOrder, getOrderPopup } from '../controllers/externalMedicalSupplies';
 
 const router = express.Router(); 
 
@@ -16,7 +16,7 @@ router.get('/vending-clear-cart', postOrder);
 
 router.put('/vending-order-medicine', getOrderPopup);
 
-router.post('/vending-sort-by-tag', postGetMedicinesSortByTag);
+router.patch('/vending-sort-by-tag/:categoryName', patchGetMedicineSortByTag);
 
 
 export default router;

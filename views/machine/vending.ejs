@@ -5,10 +5,8 @@
             <aside class="menubar">
                 <% for (var i = 0; i < categories.categoryInKorean.length; i++) { %>
                     <div class="grid_item">
-                        <form action="/vending-sort-by-tag" method="post">
-                            <button class="btn" id="btn_menu" type="submit"><%= categories.categoryInKorean[i]%></button>
-                            <input type="hidden" name="medicineTag" value="<%= categories.categoryInEnglish[i]%>">
-                        </form>
+                        <input type="hidden" name="categoryName" value="<%= categories.categoryInEnglish[i]%>">
+                        <button class="btn" id="btn_menu" type="button" onclick="medicineSortByTag(this)"><%= categories.categoryInKorean[i]%></button>
                     </div>
                 <% }; %>
             
@@ -36,9 +34,8 @@
                 </div>
             </aside>
             
-            <div class="list">
+            <div id="medcineList" class="list">
                 <% medicines.forEach(medi => {%>
-                    <% if (medi.medicineId.category.includes(category)) { %>
                     <article class="card_medicine_item">
                         <header class="card__header">
                             <h1 class="medicine__name"><%= medi.medicineId.name %></h1>
@@ -58,7 +55,6 @@
                             <button class="btn" type="button" onclick="addMedicineInCart(this)">구매</button>  
                         </div> -->
                     </article>
-                    <% } %>
                 <% }) %>
             </div>
             <script src="/js/vendingOrder.js"></script>

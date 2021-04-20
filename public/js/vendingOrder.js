@@ -36,14 +36,14 @@ const addMedicineInCart = (btn) => {
             const addedMedicine = dataFromServer[0], error = dataFromServer[1];
             let updatedHTML = ''
             if(error) {
-                errorMessage.innerHTML = '<div class="user-message user-message-error">'+ error +'</div>';
+                errorMessage.innerHTML = `<div class="user-message user-message-error">${error}</div>`;
             } else {
                 errorMessage.innerHTML='';
                 currentPrice += addedMedicine.price;
                 updatedHTML = 
                     '<div>'+
-                        '<h3 class="medicine__name">'+ addedMedicine.name + '</h3>'+
-                        '<input type="hidden" name="medicineId" value="' + addedMedicine._id + '">'+
+                        `<h3 class="medicine__name">${addedMedicine.name}</h3>`+
+                        `<input type="hidden" name="medicineId" value="${addedMedicine._id}">`+
                         '<button class="btn" type="button" onclick="deleteFromCart(this)">삭제</button>'+
                     '</div>';
                 medicinesCart.innerHTML += updatedHTML;
@@ -64,6 +64,44 @@ const addMedicineInCart = (btn) => {
             console.log(err);
     });
 };
+
+const medicineSortByTag = async (btn) => {
+    const categoryName = btn.parentNode.querySelector('[name=categoryName]').value;
+
+    try{
+        const dataFromServer = await fetch('/vending-sort-by-tag/' + categoryName, {
+            method: 'PATCH',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }});
+        
+        const medicines = await dataFromServer.json();
+        medcineList.innerHTML = '';
+        medicines.forEach(medi => {
+            if (medi.medicineId.category.includes(categoryName)) { 
+                medcineList.innerHTML +=
+                '<article class="card_medicine_item">'+
+                    '<header class="card__header">'+
+                        `<h1 class="medicine__name">${medi.medicineId.name}</h1>`+
+                    '</header>'+
+                    '<div class="card__image">'+
+                        `<input type="hidden" name="medicineId" value="${medi.medicineId._id}">`+
+                        `<img src="${medi.medicineId.imageUrl}" type="button" onclick="addMedicineInCart(this)">`+
+                    '</div>'+
+                    '<div class="card__content">'+
+                        `<h2 class="medicine__price">${medi.medicineId.price}</h2>`+
+                        '<p class="medicine__description">'+
+                            `${medi.quantity} 개<br>`+
+                        '</p>'+
+                    '</div>'+
+                '</article>';
+            }
+        })
+
+    } catch (err){
+        console.log(err);
+    }
+}
 
 const cancel = () => {
     window.location.href='/';
