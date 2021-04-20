@@ -4,7 +4,10 @@
 
 ## How it works
 
-## Images
+## Images (Examples)
+
+![]('./images/1.png')
+![]('./images/2.png')
 
 ## File directory tree
 
@@ -27,7 +30,10 @@ MedicineVendingMachine
  ┃ ┃ ┗ medicine.css
  ┃ ┣ images
  ┃ ┗ js
- ┃ ┃ ┗ socket.io.js
+ ┃ ┃ ┣ checkout.js
+ ┃ ┃ ┣ pharmacistOrder.js
+ ┃ ┃ ┣ socket.io.js
+ ┃ ┃ ┗ vendingOrder.js
  ┣ routes
  ┃ ┣ admin.js
  ┃ ┣ externalMedicalSupplies.js
@@ -44,13 +50,16 @@ MedicineVendingMachine
  ┃ ┃ ┣ end.ejs
  ┃ ┃ ┗ head.ejs
  ┃ ┣ machine
+ ┃ ┃ ┣ checkout.ejs
  ┃ ┃ ┣ index.ejs
  ┃ ┃ ┣ pharmacist.ejs
  ┃ ┃ ┣ socketIo.ejs
  ┃ ┃ ┗ vending.ejs
  ┃ ┗ 404.ejs
  ┣ app.js
- ┗ package.json
+ ┣ package-lock.json
+ ┣ package.json
+ ┗ socket.js
 ```
 
 ## Todo
@@ -61,8 +70,8 @@ MedicineVendingMachine
 - [ ] complete the machine
 
 ### Software
-- [ ] make a User Interface
-- [ ] connect to AWS
+- [x] make a User Interface
+- [x] connect to AWS
 - [ ] complete client-side
 - [ ] complete server-side
 
