@@ -40,19 +40,18 @@ const cancel = () => {
     window.location.href='/';
 }
 
-const getMedicinesList = (medicineIds) => {
-    fetch('/pharmacist-get-medicines/' + medicineIds.join(), {
-        method: 'GET',
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-        }})
-        .then(result => {
-            return result.json();
-        })
-        .then(dataFromServer => {
-            console.log(dataFromServer);
-        })
-        .catch(err => {
-            console.log(err);
-    });
+const getMedicinesList = async (medicineIds) => {
+    try{
+        const result = await fetch('/pharmacist-get-medicines/' + medicineIds.join(), {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }});
+        
+        const dataFromServer = await result.json();
+        
+        console.log(dataFromServer);
+    } catch (err) {
+        console.log(err);
+    }
 };
