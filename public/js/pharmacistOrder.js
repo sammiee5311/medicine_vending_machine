@@ -32,8 +32,21 @@ const callPharmacist = async (btn) => {
     }
 };
 
-const endCallPharmacist = (btn) => {
+const endCallPharmacist = async (btn) => {
     video.innerHTML = '';
+
+    try {
+        const result = await fetch('/pharmacist-save-video-file', {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }});
+        
+        const dataFromServer = await result.json();
+        // console.log(dataFromServer);
+    } catch (err) {
+
+    }
 };
 
 const cancel = () => {

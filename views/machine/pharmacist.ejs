@@ -22,7 +22,6 @@
         <div id="light" class="white_content">
         <button href = "javascript:void(0)" 
         onclick = "cancelOrderMedicines()">취소하기</button></div>
-        <div id="fade" class="black_overlay"></div>
         <button id="cancel" onclick="cancel()">취소하기</button>
       </div>
             
@@ -32,8 +31,8 @@
       </form>
       
       <form action="/pharmacist-end-call" method="post" class="telephone" >
-        <img src="images/telephone_down.png" type="button" onclick="endCallPharmacist(this)"  class="telephone_image">
         <input type="hidden" name="callEndSignall">
+        <img src="images/telephone_down.png" type="button" onclick="endCallPharmacist(this)"  class="telephone_image">
       </form>
 
     </div>

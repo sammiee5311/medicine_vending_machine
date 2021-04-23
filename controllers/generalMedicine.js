@@ -32,7 +32,7 @@ export const postMedicineInCart = async (req, res, next) => {
                 if (medicinesInMachine[idx].quantity) {
                     medicineList.push(medicine);
                     const result = await req.machine.addToCart(medicine);
-                    await sleep(1000);
+                    sleep(1000);
                 }
             } catch (err) {
                 console.log(err);
@@ -60,7 +60,7 @@ export const postOrder = async (req, res, next) => {
       
       MachineModule.addMedicines(medicines);
       
-      const result = await order.save();
+      await order.save();
   
       curMachine.clearCart();
       MachineModule.dischargeMedicines();
@@ -94,6 +94,29 @@ export const getPharmacistId = async (req, res, next) => {
         const idx = Math.floor(Math.random() * pharmacists.length);
         res.status(200).json(pharmacists[idx]);
     } catch (err){
+        console.log(err);
+    }
+}
+
+export const getSaveVideo = async (req, res, next) => {
+    try {
+        const curMachine = req.machine;
+        const videoUrl = 'url'; // needs to be a file Url from server. 
+        const today = new Date();
+        const hour = today.getHours();
+        const date = today.getFullYear();
+
+        const videoInfo = await Database.Video.insertMany({
+            time: today.toLocaleString(),
+            videoUrl: videoUrl,
+            machineId: curMachine._id
+        });
+
+        await curMachine.addVideoInfo(videoInfo[0]._id);
+
+        res.status(200).json('Saved A Video File Successfully.');
+
+    } catch (err) {
         console.log(err);
     }
 }

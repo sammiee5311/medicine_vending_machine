@@ -158,30 +158,6 @@ machineSchema.methods.addMedicine = function(medicineInfo, targetName, targetQua
   return this.save();
 }
 
-// machineSchema.methods.addToCart = function(medicineId){
-//   let newQuantity = 1;
-//   const medicineIndex = this.cart.medicines.findIndex(medi => {
-//       return medi.medicineId.toString() === medicineId._id.toString();
-//   });
-//   const updatedCartItems = [...this.cart.medicines];
-//   if (medicineIndex >= 0) {
-//       newQuantity = this.cart.medicines[medicineIndex].quantity + 1;
-//       updatedCartItems[medicineIndex].quantity = newQuantity;
-//   }   
-//   else {
-//     updatedCartItems.push({
-//           medicineId: medicineId._id,
-//           price: medicineId.price,
-//           quantity: 1,
-//       });
-//   }
-//   const updatedCart = {
-//       medicines: updatedCartItems
-//   };
-//   this.cart = updatedCart;
-//   return this.save();
-// }
-
 machineSchema.methods.addToCart = function(medicineId){
   const medicineIndex = this.cart.medicines.findIndex(medi => {
       return medi.medicineId.toString() === medicineId._id.toString();
@@ -230,6 +206,17 @@ machineSchema.methods.changeMedicineStock = function(medicineInfos){
 
   this.medicines = updatedMedicines;
   
+  return this.save();
+}
+
+machineSchema.methods.addVideoInfo = function(videoId){
+  updatedVideo = [...this.videos];
+
+  updatedVideo.push({
+    videoId: videoId
+  });
+
+  this.videos = updatedVideo;
   return this.save();
 }
 
