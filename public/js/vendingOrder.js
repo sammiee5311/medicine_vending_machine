@@ -35,6 +35,7 @@ const addMedicineInCart = async (btn) => {
         let updatedHTML = ''
         if(error) {
             errorMessage.innerHTML = `<div class="user-message user-message-error">${error}</div>`;
+            $('#errorMessage').fadeIn();
         } else {
             errorMessage.innerHTML='';
             currentPrice += addedMedicine.price;
@@ -47,6 +48,7 @@ const addMedicineInCart = async (btn) => {
             medicinesCart.innerHTML += updatedHTML;
             price.innerHTML = currentPrice;
         }
+        $('#errorMessage').fadeOut(3000);
             // cartData
             // .forEach(data => {
             //     currentPrice += data.medicineId.price;
@@ -93,7 +95,7 @@ const medicineSortByTag = async (btn) => {
                     '</div>'+
                 '</article>';
             }
-        })
+        });
 
     } catch (err){
         console.log(err);

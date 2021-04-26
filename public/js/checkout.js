@@ -41,8 +41,10 @@ const orderMedicines = async (btn) => {
             document.getElementById('fade').style.display='block';
         } else {
             const error = '장바구니가 비었습니다.';
+            $('#errorMessage').fadeIn();
             errorMessage.innerHTML = `<div class="user-message user-message-error"> ${error} </div>`;
         }
+        $('#errorMessage').fadeOut(3000);
     } catch (err) {
         console.log(err);
     }
