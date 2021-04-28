@@ -10,11 +10,14 @@ const sleep = ms => {
 };
 
 export const getIndexPage = (req, res, next) =>{
+    const curMachine = req.machine;
     res.render('machine/pharmacist', {
         pageTitle: 'pharmacist',
         isCallButtonClicked: false,
         path: '/pharmacist'
     })
+    curMachine.cart.medicines = [];
+    curMachine.save();
 };
 
 export const postMedicineInCart = async (req, res, next) => {
@@ -31,8 +34,7 @@ export const postMedicineInCart = async (req, res, next) => {
                 });            
                 if (medicinesInMachine[idx].quantity) {
                     medicineList.push(medicine);
-                    const result = await req.machine.addToCart(medicine);
-                    sleep(1000);
+                    await req.machine.addToCart(medicine);
                 }
             } catch (err) {
                 console.log(err);

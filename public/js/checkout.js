@@ -13,8 +13,7 @@ const orderMedicines = async (btn) => {
             }});
 
         const dataFromServer = await result.json();
-
-        console.log(dataFromServer);
+        
         let updatedHTML = ''
         let price = 0;
         dataFromServer.forEach(medicinesInfo => {

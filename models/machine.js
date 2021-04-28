@@ -23,8 +23,9 @@ class pythonModule{
   
     addMedicines(medicines){
         medicines.forEach(medi => {
-            this.options.args.push(medi.medicine.name);
+            this.options.args.push(medi.medicine._id);
         });
+        console.log(this.options);
     }
   
     resetMedicines(){
@@ -34,7 +35,8 @@ class pythonModule{
     dischargeMedicines(){
         PythonShell.run(this.fileName, this.options, (err, results) => {
             if(err) throw err;
-            if(results[0] === 'done' && results.length === 1) {
+            console.log(results);
+            if(results.length >= 1 && results[results.length-1] === 'success') {
                 setTimeout(() => {
                     console.log('Discharging medicines.');
                     fetchData()
@@ -50,7 +52,7 @@ class pythonModule{
                         console.log('Done!');
                     })
                 }, 2000);
-            }
+            } 
             else console.log("Fail");
         });
     }
