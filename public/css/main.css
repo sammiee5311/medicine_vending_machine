@@ -18,12 +18,20 @@ a {
     color: black;
 }
 
+.input {
+    width: 30px;
+}
+
 .box {
     width: 100%;
     padding: 5px;
     min-height: 480px;
     text-align: center;
     display: inline-block;
+}
+
+h1.medicine__name {
+    width: 93px;
 }
 
 .logo {
@@ -105,32 +113,32 @@ a {
 
 .card__header,
 .card__content {
-padding: 1rem;
+    padding: 1rem;
 }
 
 .card__header h1,
 .card__content h1,
 .card__content h2,
 .card__content p {
-margin: 0;
+    margin: 0;
 }
 
 .card__image {
-width: 100%;
+    width: 100%;
 }
 
 .card__image img {
-width: 100%;
+    width: 100%;
 }
 
 .card__actions {
-padding: 1rem;
-text-align: center;
+    padding: 1rem;
+    text-align: center;
 }
 
 .card__actions button,
 .card__actions a {
-margin: 0 0.25rem;
+    margin: 0 0.25rem;
 }
 
 .video {

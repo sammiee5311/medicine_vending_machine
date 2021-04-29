@@ -2,8 +2,6 @@ const Database = require('../models/database');
 const MachineModule = require('../models/machine');
 const Order = require('../models/order');
 
-let medicineCategory = "all";
-
 export const indexPage = (req, res, next) =>{
   res.render('machine/index', {
       pageTitle: 'machine',
@@ -34,7 +32,7 @@ export const getMedicineList = async (req, res, next) =>{
     });
     
   } catch(err){
-    console.log(err);
+    res.status(500).json({message: 'Fail'});
   }
 }
 
@@ -47,7 +45,7 @@ export const patchGetMedicineSortByTag = async (req, res, next) =>{
     const medicines = machinByPopulatedMedicines.medicines;
     res.status(200).json(medicines);
   } catch (err){
-    console.log(err);
+    res.status(500).json({message: 'Fail'});
   }
 }
 
@@ -91,7 +89,7 @@ export const deleteMedicineFromCart = async (req, res, next) => {
 
     res.status(200).json({price: price});
   } catch (err){
-    console.log(err);
+    res.status(500).json({message: 'Fail'});
   }
 }
 
@@ -99,7 +97,6 @@ export const postOrder = async (req, res, next) => {
   const curMachine = req.machine;
 
   try{
-    medicineCategory = "all";
     const machinByPopulatedMedicines =  await curMachine.populate('cart.medicines.medicineId').execPopulate();
     const medicines = machinByPopulatedMedicines.cart.medicines.map(medi => {
       return {quantity: medi.quantity, medicine: { ...medi.medicineId._doc }}
@@ -119,7 +116,7 @@ export const postOrder = async (req, res, next) => {
     res.redirect('/');
 
   } catch (err){
-    console.log(err);
+    res.status(500).json({message: 'Fail'});
   }
 };
 
@@ -133,6 +130,6 @@ export const getOrderPopup = async (req, res, next) => {
     })
     res.status(200).json(orderMedicines);
   } catch (err) {
-    console.log(err);
+    res.status(500).json({message: 'Fail'});
   }
 };

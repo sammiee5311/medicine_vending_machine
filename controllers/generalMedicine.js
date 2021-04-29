@@ -70,7 +70,7 @@ export const postOrder = async (req, res, next) => {
       res.redirect('/');
   
     } catch (err){
-      console.log(err);
+        res.status(500).json({message: 'Fail'});
     }
 };
 
@@ -84,7 +84,7 @@ export const getOrderPopup = async (req, res, next) => {
         })
         res.status(200).json(orderMedicines);
     } catch (err) {
-        console.log(err);
+        res.status(500).json({message: 'Fail'});
     }
 };
 
@@ -96,7 +96,7 @@ export const getPharmacistId = async (req, res, next) => {
         const idx = Math.floor(Math.random() * pharmacists.length);
         res.status(200).json(pharmacists[idx]);
     } catch (err){
-        console.log(err);
+        res.status(500).json({message: 'Fail'});
     }
 }
 
@@ -119,6 +119,6 @@ export const getSaveVideo = async (req, res, next) => {
         res.status(200).json('Saved A Video File Successfully.');
 
     } catch (err) {
-        console.log(err);
+        res.status(500).json({message: 'Fail'});
     }
 }

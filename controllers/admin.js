@@ -1,24 +1,41 @@
 const Database = require('../models/database');
+const Machine = require('../models/machine');
 
-export const getAddMedicine = (req, res, next) => {
-    res.render('admin/add-medicine', {
-      pageTitle: 'Add Product',
-      path: '/admin/add-medicine',
-      editing: false
-    });
+export const getAddMedicineInMachine = async (req, res, next) => {
+  const curMachine = req.machine;
+  try{
+    const machinByPopulatedMedicines = await curMachine
+      .populate('medicines.medicineId cart.medicines.medicineId')
+      .execPopulate();
+    const medicines = machinByPopulatedMedicines.medicines;
+      res.render('admin/add-medicine', {
+        pageTitle: 'Add Medicine',
+        medicines: medicines,
+        path: '/admin/add-medicine'
+      });
+  } catch (err) {
+    res.status(500).json({message: 'Fail'});
+  }
 };
 
-export const postAddMedicine = async (req, res, next) => {
-    const medicineId = req.machine.id;
-    const name = req.body.name;
-    const quantity = req.body.quantity;
-    try{
-        const medicineInfo = await Database.Medicine.findOne({name:name});
-        const machine = await Database.Machine.findById(medicineId);
-        const result = await req.machine.addMedicine(medicineInfo, name, quantity);
-        res.redirect('/');
+export const postAddMedicineInMachine = async (req, res, next) => {
+  const curMachine = req.machine;
+  const medicineId = req.body.medicineId;
+  const medicineQuantity = req.body.quantity;
 
-    } catch (err) {
-        console.log(err);
-    }
+  try{
+      const machinByPopulatedMedicines = await curMachine
+        .populate('medicines.medicineId cart.medicines.medicineId')
+          .execPopulate();
+      const medicines = machinByPopulatedMedicines.medicines;
+      await req.machine.addMedicine(medicineId, medicineQuantity);
+
+      res.render('admin/add-medicine', {
+        pageTitle: 'admin',
+        medicines: medicines,
+        path: '/admin/add-medicine'
+      });
+  } catch (err) {
+    res.status(500).json({message: 'Fail'});
+  }
 };
