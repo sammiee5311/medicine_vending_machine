@@ -2,7 +2,11 @@
 
 ## Motivation
 
+Many people complain about not only getting medicine at working hours but also hard to get it in underdeveloped areas.
+
 ## How it works
+
+<img src="./images/3.png" width="720">
 
 ## Images (Examples)
 
