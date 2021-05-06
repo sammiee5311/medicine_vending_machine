@@ -2,10 +2,10 @@ from typing import List
 import typing
 
 class MotorModule:
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
-    def move_motors(self, location: List[tuple]):
+    def move_motors(self, location: List[tuple]) -> None:
         print(location)
         self.move_left()
         self.move_right()
@@ -26,6 +26,10 @@ class MotorModule:
 
     def reset_motor_location(self) -> None:
         print('reset motor location')
+
+    @staticmethod
+    def send_confirmation() -> None:
+        print('success')
 
 if __name__ == '__main__':
     motor = MotorModule()
