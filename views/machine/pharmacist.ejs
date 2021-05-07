@@ -18,12 +18,12 @@
 
       <div class="payment">
         <input type="hidden" name="ok" value="pharmacist">
-        <button id="ok" href = "javascript:void(0)"
+        <button class="ok" id="ok" href = "javascript:void(0)"
         onclick = "orderMedicines(this)">구매하기</button></p>
         <div id="light" class="white_content">
         <button href = "javascript:void(0)" 
-        onclick = "cancelOrderMedicines()">취소하기</button></div>
-        <button id="cancel" onclick="cancel()">취소하기</button>
+        onclick = "cancelOrderMedicines(this)">취소하기</button></div>
+        <button class="cancel" id="cancel" onclick="cancel(this)">취소하기</button>
       </div>
             
       <form action="/pharmacist-call" method="post" class="telephone">
@@ -40,6 +40,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/pharmacistOrder.js"></script>
     <script src="/js/checkout.js"></script>
+    <script src="/js/vendingOrder.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>

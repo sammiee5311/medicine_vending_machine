@@ -1,10 +1,15 @@
+const orderColor = "changeOrderColor";
+
 const checkout = (btn) => {
     const url = btn.parentNode.querySelector('[name=ok]').value;
+    changeBtnColor(btn, changeOrderColor);
     window.location.href='/'+url+'-clear-cart';
 }
 
 const orderMedicines = async (btn) => {
     const url = btn.parentNode.querySelector('[name=ok]').value;
+    changeBtnColor(btn, orderColor);
+    
     try{
         const result = await fetch(`/${url}-order-medicine`, {
             method: 'PUT',
@@ -31,8 +36,8 @@ const orderMedicines = async (btn) => {
             `<h3>총 가격: ${price} 원 </h3>` +
             '</div>' +
             `<input type="hidden" name="ok" value=${url}>`+
-            '<button id="ok" onclick="checkout(this)">결제하기</button>' +
-            '<button id="cancel" onclick="cancelOrderMedicines()">취소하기</button>';  
+            '<button class="ok" id="ok" onclick="checkout(this)">결제하기</button>' +
+            '<button class="cancel" id="cancel" onclick="cancelOrderMedicines(this)">취소하기</button>';  
 
             light.innerHTML = updatedHTML;
 
@@ -49,7 +54,8 @@ const orderMedicines = async (btn) => {
     }
 }
 
-const cancelOrderMedicines = () => {
+const cancelOrderMedicines = (btn) => {
+    changeBtnColor(btn, cancelColor);
     document.getElementById('light').style.display='none';
     document.getElementById('fade').style.display='none';
 }

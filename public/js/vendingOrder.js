@@ -1,8 +1,14 @@
 let currentPrice = 0;
+const mainColor = "changeColor";
+const cancelColor = "changeCancelColor";
+const transparentColor = "changeTransparentColor";
 
 const deleteFromCart = async (btn) => {
     const medicineId = btn.parentNode.querySelector('[name=medicineId]').value;
     const medicineDIV = btn.closest('div');
+
+    changeBtnColor(btn, mainColor);
+
     try{
         const result = await fetch('/vending-delete-medicine-from-cart/' + medicineId, {
             method: 'DELETE',
@@ -21,6 +27,7 @@ const deleteFromCart = async (btn) => {
 };
 
 const addMedicineInCart = async (btn) => {
+    changeBtnColor(btn, transparentColor);
     const medicineId = btn.parentNode.querySelector('[name=medicineId]').value;
     try{
         const result = await fetch('/vending-add-medicine-in-cart/' + medicineId, {
@@ -49,16 +56,6 @@ const addMedicineInCart = async (btn) => {
             price.innerHTML = currentPrice;
         }
         $('#errorMessage').fadeOut(3000);
-            // cartData
-            // .forEach(data => {
-            //     currentPrice += data.medicineId.price;
-            //     updatedHTML += 
-            //     '<div>'+
-            //         '<h3 class="medicine__name">'+ data.medicineId.name + ' ' + data.quantity + '</h3>'+
-            //         '<input type="hidden" name="medicineId" value="' + data.medicineId._id + '">'+
-            //         '<button class="btn" type="button" onclick="deleteFromCart(this)">삭제</button>'+
-            //     '</div>';
-            // })
     } catch (err) {
         console.log(err);
     }
@@ -66,6 +63,7 @@ const addMedicineInCart = async (btn) => {
 
 const medicineSortByTag = async (btn) => {
     const categoryName = btn.parentNode.querySelector('[name=categoryName]').value;
+    changeBtnColor(btn, mainColor);
 
     try{
         const dataFromServer = await fetch('/vending-sort-by-tag/' + categoryName, {
@@ -102,6 +100,14 @@ const medicineSortByTag = async (btn) => {
     }
 }
 
-const cancel = () => {
+const cancel = (btn) => {
+    changeBtnColor(btn, cancelColor);
     window.location.href='/';
-}
+};
+
+const changeBtnColor = (btn, color=mainColor) => {
+    btn.classList.add(color);
+    setTimeout( () => {
+        btn.classList.remove(color)
+    }, 90);
+};

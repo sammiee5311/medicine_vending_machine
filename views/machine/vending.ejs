@@ -24,13 +24,13 @@
                         0
                     </div>
                     <input type="hidden" name="ok" value="vending">
-                    <button id="ok" name="ok" href = "javascript:void(0)" value="vending" 
+                    <button class="ok" id="ok" name="ok" href = "javascript:void(0)" value="vending" 
                     onclick = "orderMedicines(this)">구매하기</button></p>
                     <div id="light" class="white_content">
                     <a href = "javascript:void(0)" 
-                    onclick = "cancelOrderMedicines()">취소하기</a></div>
+                    onclick = "cancelOrderMedicines(this)">취소하기</a></div>
                     <div id="fade" class="black_overlay"></div>
-                    <button id="cancel" onclick="cancel()">취소하기</button>
+                    <button class="cancel" id="cancel" onclick="cancel(this)">취소하기</button>
                 </div>
             </aside>
             

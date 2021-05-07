@@ -4,7 +4,8 @@
             <header style="text-align: center;">
                 <img src="/images/logo.png" alt="logo" class="logo">
             </header>
-            <a href="vending" class="slide" id="slide_left">자판기 < </a>
-            <a href="pharmacist" class="slide" id="slide_right"> > 약사와 상담</a>
+            <a href="vending" class="slide" id="slide_left" onclick="changeBtnColor(this)">자판기 < </a>
+            <a href="pharmacist" class="slide" id="slide_right" onclick="changeBtnColor(this)"> > 약사와 상담</a>
         </div>
+    <script src="/js/vendingOrder.js"></script>
 <%- include('../includes/end.ejs') %>     

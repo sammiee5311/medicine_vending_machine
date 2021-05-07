@@ -265,8 +265,9 @@ h1.medicine__name {
 }
 
 
-#ok {background-color: #5DADE2;}
-#cancel {background-color: #E74C3C;}
+.ok {background-color: #5DADE2;}
+
+.cancel {background-color: #E74C3C;}
 
 @media screen and (max-width: 768px) {
     .logo {
@@ -333,4 +334,20 @@ h1.medicine__name {
     background-color: white;
     z-index:1002;
     overflow: auto;
+}
+
+.changeColor{
+    background-color: #a0e29adc;
+}
+
+.changeOrderColor{
+    background-color: #b4d9f1;
+}
+
+.changeCancelColor{
+    background-color: #ee9288;
+}
+
+.changeTransparentColor{
+    background-color: #000000c4;
 }

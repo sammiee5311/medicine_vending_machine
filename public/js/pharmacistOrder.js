@@ -1,10 +1,13 @@
 const socket = io.connect('http://localhost:3000');
+const callColor = "changeOrderColor";
+const endCallColor = "changeCancelColor";
 
 socket.on('medicineList', medicineIds => {
     getMedicinesList(medicineIds);
 });
 
 const callPharmacist = async (btn) => {
+    changeBtnColor(btn, callColor);
     try {
         const pharmacistDBNumber = btn.parentNode.querySelector('[name=callSignal]').value;
         const result = await fetch('/pharmacist-get-pharmacist-id/' + pharmacistDBNumber, {
@@ -33,6 +36,7 @@ const callPharmacist = async (btn) => {
 };
 
 const endCallPharmacist = async (btn) => {
+    changeBtnColor(btn, endCallColor);
     video.innerHTML = '';
 
     try {
@@ -48,10 +52,6 @@ const endCallPharmacist = async (btn) => {
 
     }
 };
-
-const cancel = () => {
-    window.location.href='/';
-}
 
 const getMedicinesList = async (medicineIds) => {
     try{
