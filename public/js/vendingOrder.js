@@ -7,8 +7,6 @@ const deleteFromCart = async (btn) => {
     const medicineId = btn.parentNode.querySelector('[name=medicineId]').value;
     const medicineDIV = btn.closest('div');
 
-    changeBtnColor(btn, mainColor);
-
     try{
         const result = await fetch('/vending-delete-medicine-from-cart/' + medicineId, {
             method: 'DELETE',
@@ -48,9 +46,11 @@ const addMedicineInCart = async (btn) => {
             currentPrice += addedMedicine.price;
             updatedHTML = 
                 '<div>'+
-                    `<h3 class="medicine__name">${addedMedicine.name}</h3>`+
-                    `<input type="hidden" name="medicineId" value="${addedMedicine._id}">`+
-                    '<button class="btn" type="button" onclick="deleteFromCart(this)">삭제</button>'+
+                    `<div class="medicineCartItem">`+
+                        `<h3 class="medicine__name">${addedMedicine.name}</h3>`+
+                        `<input type="hidden" name="medicineId" value="${addedMedicine._id}">`+
+                        '<button class="btn" type="button" onclick="deleteFromCart(this)">삭제</button>'+
+                    `</div>`+
                 '</div>';
             medicinesCart.innerHTML += updatedHTML;
             price.innerHTML = currentPrice;
@@ -63,7 +63,6 @@ const addMedicineInCart = async (btn) => {
 
 const medicineSortByTag = async (btn) => {
     const categoryName = btn.parentNode.querySelector('[name=categoryName]').value;
-    changeBtnColor(btn, mainColor);
 
     try{
         const dataFromServer = await fetch('/vending-sort-by-tag/' + categoryName, {

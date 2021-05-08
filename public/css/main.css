@@ -99,6 +99,12 @@ h1.medicine__name {
     padding-left: 3%;
 }
 
+.list :active {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    zoom: 1;
+}
+
 .card {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 }
@@ -184,6 +190,12 @@ h1.medicine__name {
     margin: 0 3%;
     display: inline-block;
     vertical-align: top;
+}
+
+.grid_item :active {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    zoom: 1;
 }
 
 .menubar {
@@ -350,4 +362,10 @@ h1.medicine__name {
 
 .changeTransparentColor{
     background-color: #000000c4;
+}
+
+.medicineCartItem :active {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    zoom: 1;
 }
