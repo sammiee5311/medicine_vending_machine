@@ -26,15 +26,14 @@ class PythonModule():
         return not self.data_from_nodejs
 
 if __name__ == '__main__':
-    with open("./util/python/medicine_location.json", "r") as medi_loc:
-        medicine_location = json.load(medi_loc)
+    # with open("./util/python/medicine_location.json", "r") as medi_loc:
+    #     medicine_location = json.load(medi_loc)
         
     medicine_data = PythonModule(sys.argv[1:])
     machine = MotorModule()
     
     for medicine in medicine_data:
-        location = medicine_location[medicine]['location']
-        machine.move_motors(location)
+        machine.move_motors(medicine)
 
     machine.reset_motor_location()
 

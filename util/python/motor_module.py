@@ -1,28 +1,47 @@
-from typing import List
+from typing import List, Dict
 import typing
+import time
+import json
+import os
+from pyfirmata import Arduino
+
 
 class MotorModule:
+    try:
+        if os.name == 'nt': # window os
+            BOARD = Arduino('') # COM number
+        else:
+            BOARD = Arduino('/dev/ttyACM0')
+    except:
+        BOARD = None
+
+
     def __init__(self) -> None:
-        pass
+        self.motors = self.set_pins()
+    
+    def set_pins(self) -> Dict[str, Arduino]:
+        motors = {}
+        with open("medicine_location.json", "r") as medi_pins:
+            medicine_pins = json.load(medi_pins)
+        try:
+            for key, val in medicine_pins.items():
+                if val['pinNumber']:
+                    motors[key] = self.BOARD.get_pin(val['pinNumber'])
+        except AttributeError:
+            print('Arduino is not connected to your device.')
+        
+        return motors
 
-    def move_motors(self, location: List[tuple]) -> None:
-        print(location)
-        self.move_left()
-        self.move_right()
-        self.move_up()
-        self.move_down()
+    def move_motors(self, name: str) -> None:
+        try:
+            self.motors[name].write(0.6)
+            time.sleep(2)
+            self.motors[name].write(0)
+            time.sleep(1)
 
-    def move_left(self) -> None:
-        print('move left')
+        except KeyError:
+            print('%s ID is not contained in medicine list.' %name)
 
-    def move_right(self) -> None:
-        print('move right')
-
-    def move_up(self) -> None:
-        print('move up')
-
-    def move_down(self) -> None:
-        print('move dwon')
 
     def reset_motor_location(self) -> None:
         print('reset motor location')
@@ -31,5 +50,9 @@ class MotorModule:
     def send_confirmation() -> None:
         print('success')
 
+
 if __name__ == '__main__':
     motor = MotorModule()
+    if motor.BOARD:
+        motor.move_motors('')
+        motor.move_motors('')
