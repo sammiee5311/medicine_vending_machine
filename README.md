@@ -69,14 +69,14 @@ MedicineVendingMachine
 ## Todo
 
 ### Hardward
-- [ ] control motors
+- [x] control motors
 - [ ] make a frame by using a 3D printer
 - [ ] complete the machine
 
 ### Software
 - [x] make a User Interface
 - [x] connect to AWS
-- [ ] complete client-side
+- [x] complete client-side
 - [ ] complete server-side
 
 ## Reference
