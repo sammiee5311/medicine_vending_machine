@@ -1,5 +1,7 @@
 # Medicine Vending Machine
 
+[detail](https://sammiee5311.github.io/capston/Medicine-Vending-Machine/)
+
 ## Motivation
 
 Many people complain about not only getting medicine at working hours but also hard to get it in underdeveloped areas.
