@@ -51,24 +51,25 @@ export const postOrder = async (req, res, next) => {
     const curMachine = req.machine;
   
     try{
-      const machinByPopulatedMedicines =  await curMachine.populate('cart.medicines.medicineId').execPopulate();
-      const medicines = machinByPopulatedMedicines.cart.medicines.map(medi => {
-        return {quantity: medi.quantity, medicine: { ...medi.medicineId._doc }}
-      });
-      const order = new Order({
-        machine:{ machineId: curMachine },
-        medicines: medicines
-      });
-      
-      MachineModule.addMedicines(medicines);
-      
-      await order.save();
-  
-      curMachine.clearCart();
-      MachineModule.dischargeMedicines();
-      MachineModule.resetMedicines();
-      res.redirect('/');
-  
+        const machinByPopulatedMedicines =  await curMachine.populate('cart.medicines.medicineId').execPopulate();
+        const medicines = machinByPopulatedMedicines.cart.medicines.map(medi => {
+            return {quantity: medi.quantity, medicine: { ...medi.medicineId._doc }}
+        });
+        const order = new Order({
+            machine:{ machineId: curMachine },
+            medicines: medicines
+        });
+        
+        MachineModule.addMedicines(medicines);
+        
+        await order.save();
+
+        curMachine.clearCart();
+        await MachineModule.dischargeMedicines();
+        res.redirect('/');
+
+        MachineModule.resetMedicines();
+
     } catch (err){
         res.status(500).json({message: 'Fail'});
     }

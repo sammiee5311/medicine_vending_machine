@@ -2,8 +2,12 @@ const orderColor = "changeOrderColor";
 
 const checkout = (btn) => {
     const url = btn.parentNode.querySelector('[name=ok]').value;
-    changeBtnColor(btn, changeOrderColor);
+    changeBtnColor(btn, orderColor);
     window.location.href='/'+url+'-clear-cart';
+    updatedHTML = `<img src="/images/logo.png" alt="logo" class="logo">` +
+    `<h1> 약품이 나오는 중입니다. <h1>`+
+    `<center> <img src="/images/loading.gif" alt="loading" class="loading"> </center>`;
+    light.innerHTML = updatedHTML;
 }
 
 const orderMedicines = async (btn) => {
@@ -24,7 +28,7 @@ const orderMedicines = async (btn) => {
         dataFromServer.forEach(medicinesInfo => {
             price += medicinesInfo.medicine.price;
             updatedHTML += 
-                '<ul>' +
+                '<ul class="noPadding">' +
                     `<li> <h3> ${medicinesInfo.medicine.name} : ${medicinesInfo.medicine.price} 원 </h3> </li>` +
                 '</ul>';
         });
@@ -32,13 +36,12 @@ const orderMedicines = async (btn) => {
         if(price > 0) {
             errorMessage.innerHTML = '';
             updatedHTML += 
-            '<div>' +
-            `<h3>총 가격: ${price} 원 </h3>` +
-            '</div>' +
+            '<div class="payall">' +
+            `<h3>합계금액 : ${price} 원</h3>` +
             `<input type="hidden" name="ok" value=${url}>`+
-            '<button class="ok" id="ok" onclick="checkout(this)">결제하기</button>' +
-            '<button class="cancel" id="cancel" onclick="cancelOrderMedicines(this)">취소하기</button>';  
-
+            '<button class="ok" onclick="checkout(this)">결제하기</button>' +
+            '<button class="cancel" onclick="cancelOrderMedicines(this)">취소하기</button>' +
+            '</div>';
             light.innerHTML = updatedHTML;
 
             document.getElementById('light').style.display='block';
@@ -47,8 +50,8 @@ const orderMedicines = async (btn) => {
             const error = '장바구니가 비었습니다.';
             $('#errorMessage').fadeIn();
             errorMessage.innerHTML = `<div class="user-message user-message-error"> ${error} </div>`;
+            $('#errorMessage').fadeOut(3000);
         }
-        $('#errorMessage').fadeOut(3000);
     } catch (err) {
         console.log(err);
     }

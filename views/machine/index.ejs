@@ -1,11 +1,12 @@
 <%- include('../includes/head.ejs') %>      
     <body>
         <div class="box">
-            <header style="text-align: center;">
-                <img src="/images/logo.png" alt="logo" class="logo">
+            <header>
+                <a href="#">💊<span style="color: #27AE60;"> | </span>PHARMACY</a>
             </header>
-            <a href="vending" class="slide" id="slide_left" onclick="changeBtnColor(this)">자판기 < </a>
-            <a href="pharmacist" class="slide" id="slide_right" onclick="changeBtnColor(this)"> > 약사와 상담</a>
+            <aside class="menubar"></aside>
+            <a href="vending" class="slide" onclick="changeBtnColor(this)">자판기 <</a>
+            <a href="pharmacist" class="slide" onclick="changeBtnColor(this)">> 약사와 상담 </a>
         </div>
     <script src="/js/vendingOrder.js"></script>
 <%- include('../includes/end.ejs') %>     

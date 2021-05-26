@@ -2,6 +2,7 @@ import sys
 import typing
 import json
 from typing import List, Dict, Union, Generator
+import time
 
 ####################################
 from motor_module import MotorModule
@@ -26,19 +27,16 @@ class PythonModule():
         return not self.data_from_nodejs
 
 if __name__ == '__main__':
-    # with open("./util/python/medicine_location.json", "r") as medi_loc:
-    #     medicine_location = json.load(medi_loc)
-        
     medicine_data = PythonModule(sys.argv[1:])
     machine = MotorModule()
     
     for medicine in medicine_data:
         machine.move_motors(medicine)
 
-    machine.reset_motor_location()
+    time.sleep(5)
 
     try: 
         if medicine_data.has_gotten_all():
-            machine.send_confirmation()
+            machine.success()
     except:
-        print("fail")
+        machine.fail()

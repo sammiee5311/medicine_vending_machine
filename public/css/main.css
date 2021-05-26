@@ -1,3 +1,4 @@
+/*----------common----------*/
 @font-face {
     font-family: 'GmarketSansMedium';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
@@ -6,71 +7,87 @@
 }
 
 body { 
-    width: 95%;
-    min-height: 480px;
-    margin: 2%;
-    padding: 5px;
+    text-align: center;
     font-family: 'GmarketSansMedium';
     user-select: none;
 }
 
-a {
+a, .btn, .slide {
     color: black;
 }
 
-.input {
-    width: 30px;
+header {
+    width: 95%;
+    height: 50px;
+    position: absolute;
+    top: -1.5%;
+    padding: 1rem 0 0.5rem;
+    text-align: center;
+    font-size: 1.75rem;
+    border: 5px solid #27AE60;
+    border-radius: 0 0 2rem 2rem;
+}
+
+header a {
+    text-decoration: none;
 }
 
 .box {
     width: 100%;
-    padding: 5px;
-    min-height: 480px;
+    height: 520px;
     text-align: center;
-    display: inline-block;
+    overflow-y: auto;
 }
 
-h1.medicine__name {
-    width: 93px;
+footer {
+    width: 95%;
+    height: 120px;
+    font-size: 1rem;
+    box-sizing: content-box;
+    position: absolute;
+    bottom: 0;
+    border: 5px solid #27AE60;
+    border-radius: 2rem 2rem 0 0;
+
+    display: flex;
+    flex-flow: column-reverse wrap;
+    justify-content: space-around;
 }
 
-.logo {
-    margin-top: 15px;
-    width: 300px;
-    height: 50px;
-}
-
-.btn {
-    color: black;
-    border: 1px solid #27AE60;
-    border-width: thick;
-    border-radius: 15px;
-    display: inline-block;
-    text-align: center;
-    text-decoration-line: none;
-    background-color: white;
-}
-
-#btn_menu {
-    width: 100px;
-    height: 60px;
-    font-size: 25px;
-    line-height: 55px;
-}
+/*----------index----------*/
 
 .slide {
     width: 40%;
-    margin: 4% 2.5%;
-    height: 70%;
-    color: black;
-    border: 1px solid #27AE60;
-    border-width: thick;
-    border-radius: 15px;
-    font-size: 285%;
-    line-height: 480px;
+    height: 240px;
+    margin: 0 2%;
     display: inline-block;
+    font-size: 1.75rem;
+    line-height: 240px;
+    border-radius: 15px;
+    border: 3px solid #27AE60;
     text-align: center;
     text-decoration-line: none;
+}
+
+/*----------vending----------*/
+
+.menubar {
+    margin: 5.5rem 2rem 1rem;
+}
+
+.menubar div {
+    margin: 0 10px;
+    display: inline-block;
+}
+
+.btn {
+    width: 75px;
+    height: 45px;
+    font-size: 1.25rem;
+    text-align: center;
+    border-radius: 15px;
+    border: 3px solid #27AE60;
+    background-color: white;
 }
 
 .user-message {
@@ -89,237 +106,96 @@ h1.medicine__name {
     color: red;
 }
 
-#slide_left {
-    text-align: right;
-    padding-right: 3%;
+.list {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
 }
 
-#slide_right {
-    text-align: left;
-    padding-left: 3%;
-}
-
-.list :active {
+.menubar div :active, .list :active {
     opacity: 0.5;
-    filter: alpha(opacity=50);
-    zoom: 1;
-}
-
-.card {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 }
 
 .card_medicine_item {
-    width: 120px;
-    height: 300px;
-    margin: 0 3%;
-    float: left;
+    width: 40%;
+    height: 15rem;
+    margin-bottom: 3rem;
     display: inline-block;
 }
 
-.card__header,
-.card__content {
-    padding: 1rem;
+.card_medicine_item ~ {
+    margin: 1rem 0;
 }
 
-.card__header h1,
-.card__content h1,
-.card__content h2,
-.card__content p {
-    margin: 0;
+img {
+    height: 6rem;
 }
-
-.card__image {
-    width: 100%;
-}
-
-.card__image img {
-    width: 100%;
-}
-
-.card__actions {
-    padding: 1rem;
-    text-align: center;
-}
-
-.card__actions button,
-.card__actions a {
-    margin: 0 0.25rem;
-}
-
-.video {
-    width: 75%;
-    height: 80%;
-    min-height: 350px;
-    margin: 2% 25px;
-    padding: 2%;
-    float: right;
-    display: inline-block;
-    border-radius: 15px;
-    border-width: thick;
-    border: 1px solid #27AE60;
-}
-
-.telephone {
-    width: 95px;
-    height: 30px;
-    color: white;
-    font-weight: bold;
-    background: no-repeat;
-    border: none;
-    border-radius: 50px;
-    margin: 0 15% 5%;
-    cursor: pointer;
-    display: inline-block;
-}
-
-#telephone_up {background-color: #5DADE2;}
-#telephone_down {background-color: #E74C3C;}
-
-.grid {
-    width: 500px;
-    margin: 0 auto;
-    background-color: dimgrey;
-    text-align: center;
-    font-size: 0;
-}
-
-.grid_item {
-    width: 100px;
-    height: 100px;
-    margin: 0 3%;
-    display: inline-block;
-    vertical-align: top;
-}
-
-.grid_item :active {
-    opacity: 0.5;
-    filter: alpha(opacity=50);
-    zoom: 1;
-}
-
-.menubar {
-    width: 580px;
-    height: 50px;
-    margin: 0 10px;
-    line-height: 50px;
-    font-size: 2rem;
-    display: inline-block;
-    padding: 5px 15px;
-}
-
-.list {
-    width: 60%;
-    min-height: 50px;
-    margin-top: 4%;
-    padding-top: 4%;
-    text-align: center;
-    display: inline-block;
-    border-top: 3px solid #27AE60;
-}
-
-.sidebar {
-    width: 12.5%;
-    height: 100%;
-    min-height: 360px;
-    margin: 0 10px;
-    padding: 5px;
-    font-size: 20px;
-    text-align: center;
-    float: right;
-    border-radius: 15px;
-}
-
-.prev {
-    width: 10%;
-    height: 80%;
-    min-height: 400px;
-    padding: 5px;
-    font-size: 20px;
-    text-align: center;
-    font-size: 3em;
-    line-height: 500px;
-    text-decoration: none;
-    border-radius: 15px;
-}
-
-#prev_vending {float: right;}
-#prev_pharmacist {float: left;}
 
 .payment {
-    width: 120px;
-    height: 40px;
+    width: 250px;
     margin: 10px 2.5%;
-    position: 60%;
-    top: 60%;
-    text-align: center;
-    line-height: 40px;
-    border-radius: 10px;
 }
+
+.payment h2 {margin: 0 0 1rem 0.5rem;}
 
 #price {
     height: 10px;
     line-height: 0px;
-    margin: 10px 0;
+    margin-left: 3rem;
 }
 
-#ok, #cancel {
-    width: 90%;
+.ok, .cancel {
+    width: 120px;
     height: 40px;
-    margin: 5px 0;
     font-weight: bold;
     border: 0px;
     border-radius: 15px;
 }
 
-.telephone_image {
-    width: 60px
-}
-
-
 .ok {background-color: #5DADE2;}
-
 .cancel {background-color: #E74C3C;}
 
-@media screen and (max-width: 768px) {
-    .logo {
-        margin-top: 15px;
-        width: 150px;
-        height: 25px;
-    }
-
-    .box {
-        min-height: 240px;
-
-    }
-    
-    .telephone {
-        margin-left: 25%;
-        margin-bottom: 5%;
-    }
-
-    .slide {
-        margin: 0 2%;
-        width: 40%;
-        height: 240px;
-        font-size: 180%;
-        line-height: 240px;
-    }
-
-    .video {
-        width: 60%;
-        min-width: 320px;
-        height: 90%;
-        min-height: 300px;
-        margin: 2% 15px;
-        padding: 2%;
-    }
-
-    .prev {
-        height: 100%;
-        min-height: 200px;
-    }
+.white_content ul li {
+    list-style: none;
+    text-align: center;
 }
+
+.payall {
+    position: relative;
+    top: 10rem;
+    text-align: center;
+}
+
+.payall h3+ {
+    margin-right: 8rem;
+}
+
+/*----------pharmacist----------*/
+
+.video {
+    width: 400px;
+    height: 350px;
+    margin: 0 auto;
+    padding: 2%;
+    border: 1px solid #27AE60;
+    border-radius: 15px;
+}
+
+.telephone {
+    margin: 1rem 10%;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.telephone_image {
+    width: 60px;
+    height: 60px;
+}
+
+#telephone_up {background-color: #5DADE2;}
+#telephone_down {background-color: #E74C3C;}
 
 .black_overlay{
     display: none;
@@ -364,8 +240,20 @@ h1.medicine__name {
     background-color: #000000c4;
 }
 
-.medicineCartItem :active {
-    opacity: 0.5;
-    filter: alpha(opacity=50);
-    zoom: 1;
+.loading{
+    position: relative;
+    width: 30%;
+    height: 30%;
+}
+
+.noPadding{
+    padding-left: 0px;
+}
+
+.logo{
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 65%;
+    height: 15%;
 }

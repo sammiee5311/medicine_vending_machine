@@ -1,65 +1,62 @@
 <%- include('../includes/head.ejs') %>
     <body>
+        <header>
+            <a href="/">🏠 시작화면</a>
+        </header>
+        
+        <aside class="menubar">
+            <% for (var i = 0; i < categories.categoryInKorean.length; i++) { %>
+               <div>
+                    <input type="hidden" name="categoryName" value="<%= categories.categoryInEnglish[i]%>">
+                    <button class="btn" type="button" onclick="medicineSortByTag(this)"><%= categories.categoryInKorean[i]%></button>
+                </div>
+            <% }; %>
+        </aside>
+
         <div class="box">
+
             <div id="errorMessage"></div>
-            <aside class="menubar">
-                <% for (var i = 0; i < categories.categoryInKorean.length; i++) { %>
-                    <div class="grid_item">
-                        <input type="hidden" name="categoryName" value="<%= categories.categoryInEnglish[i]%>">
-                        <button class="btn" id="btn_menu" type="button" onclick="medicineSortByTag(this)"><%= categories.categoryInKorean[i]%></button>
-                    </div>
-                <% }; %>
-            
-            </aside>
 
-            <a href="/" class="prev" id="prev_vending">></a>
-
-            <aside class="sidebar">
-                <div id="medicinesCart" class="medicinesCart">
-
-                </div>
-                <div class="payment">
-                    <div>결제금액</div>
-                    <div id="price">
-                        0
-                    </div>
-                    <input type="hidden" name="ok" value="vending">
-                    <button class="ok" id="ok" name="ok" href = "javascript:void(0)" value="vending" 
-                    onclick = "orderMedicines(this)">구매하기</button></p>
-                    <div id="light" class="white_content">
-                    <a href = "javascript:void(0)" 
-                    onclick = "cancelOrderMedicines(this)">취소하기</a></div>
-                    <div id="fade" class="black_overlay"></div>
-                    <button class="cancel" id="cancel" onclick="cancel(this)">취소하기</button>
-                </div>
-            </aside>
-            
-            <div id="medcineList" class="list">
+            <div class="list" id="medicineList">
                 <% medicines.forEach(medi => {%>
                     <article class="card_medicine_item">
-                        <header class="card__header">
+                        <div class="card__header">
                             <h1 class="medicine__name"><%= medi.medicineId.name %></h1>
-                        </header>
+                        </div>
                         <div class="card__image">
                             <input type="hidden" name="medicineId" value="<%= medi.medicineId._id %>">
                             <img src="<%= medi.medicineId.imageUrl %>" type="button" onclick="addMedicineInCart(this)">
                         </div>
                         <div class="card__content">
                             <h2 class="medicine__price"><%= medi.medicineId.price %></h2>
-                            <p class="medicine__description">
-                                <%= medi.quantity %> 개<br>
-                            </p>
+                            <p class="medicine__description"><%= medi.quantity %> 개</p>
                         </div>
-                        <!-- <div>
-                            <input type="hidden" name="medicineId" value="<%= medi.medicineId._id %>">
-                            <button class="btn" type="button" onclick="addMedicineInCart(this)">구매</button>  
-                        </div> -->
                     </article>
                 <% }) %>
             </div>
-            <script src="/js/vendingOrder.js"></script>
-            <script src="/js/checkout.js"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         </div>
-        
+
+        <div class="white_content" id="light">
+            <a href = "javascript:void(0)" 
+            onclick = "cancelOrderMedicines(this)">취소하기</a></div>
+            <div class="black_overlay" id="fade"></div>
+
+        <footer>
+            <div class="payment">
+                <h2>결제금액 <span id="price">0</span></h2>
+
+                <input type="hidden" name="ok" value="vending">
+                <button class="ok"name="ok" href ="javascript:void(0)" value="vending" 
+                onclick = "orderMedicines(this)">결제하기</button>
+
+                <button class="cancel" 
+                onclick="cancel(this)">취소하기</button>
+            </div>
+
+            <div  class="medicinesCart" id="medicinesCart"></div>
+
+        </footer>
+        <script src="/js/vendingOrder.js"></script>
+        <script src="/js/checkout.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <%- include('../includes/end.ejs') %> 

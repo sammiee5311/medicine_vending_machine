@@ -21,7 +21,7 @@ class MotorModule:
     
     def set_pins(self) -> Dict[str, Arduino]:
         motors = {}
-        with open("medicine_location.json", "r") as medi_pins:
+        with open("./util/python/medicine_location.json", "r") as medi_pins:
             medicine_pins = json.load(medi_pins)
         try:
             for key, val in medicine_pins.items():
@@ -42,13 +42,13 @@ class MotorModule:
         except KeyError:
             print('%s ID is not contained in medicine list.' %name)
 
-
-    def reset_motor_location(self) -> None:
-        print('reset motor location')
+    @staticmethod
+    def success() -> None:
+        print('success')
 
     @staticmethod
-    def send_confirmation() -> None:
-        print('success')
+    def fail() -> None:
+        print('fail')
 
 
 if __name__ == '__main__':

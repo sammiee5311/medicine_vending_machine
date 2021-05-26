@@ -111,7 +111,7 @@ export const postOrder = async (req, res, next) => {
     await order.save();
 
     curMachine.clearCart();
-    MachineModule.dischargeMedicines();
+    await MachineModule.dischargeMedicines();
     MachineModule.resetMedicines();
     res.redirect('/');
 

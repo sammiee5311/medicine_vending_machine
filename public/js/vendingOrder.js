@@ -7,6 +7,8 @@ const deleteFromCart = async (btn) => {
     const medicineId = btn.parentNode.querySelector('[name=medicineId]').value;
     const medicineDIV = btn.closest('div');
 
+    changeBtnColor(btn, mainColor);
+
     try{
         const result = await fetch('/vending-delete-medicine-from-cart/' + medicineId, {
             method: 'DELETE',
@@ -46,11 +48,9 @@ const addMedicineInCart = async (btn) => {
             currentPrice += addedMedicine.price;
             updatedHTML = 
                 '<div>'+
-                    `<div class="medicineCartItem">`+
-                        `<h3 class="medicine__name">${addedMedicine.name}</h3>`+
-                        `<input type="hidden" name="medicineId" value="${addedMedicine._id}">`+
-                        '<button class="btn" type="button" onclick="deleteFromCart(this)">삭제</button>'+
-                    `</div>`+
+                    `<h3 class="medicine__name">${addedMedicine.name}</h3>`+
+                    `<input type="hidden" name="medicineId" value="${addedMedicine._id}">`+
+                    '<button class="btn" type="button" onclick="deleteFromCart(this)">삭제</button>'+
                 '</div>';
             medicinesCart.innerHTML += updatedHTML;
             price.innerHTML = currentPrice;
@@ -63,6 +63,7 @@ const addMedicineInCart = async (btn) => {
 
 const medicineSortByTag = async (btn) => {
     const categoryName = btn.parentNode.querySelector('[name=categoryName]').value;
+    changeBtnColor(btn, mainColor);
 
     try{
         const dataFromServer = await fetch('/vending-sort-by-tag/' + categoryName, {
@@ -72,14 +73,14 @@ const medicineSortByTag = async (btn) => {
             }});
         
         const medicines = await dataFromServer.json();
-        medcineList.innerHTML = '';
+        medicineList.innerHTML = '';
         medicines.forEach(medi => {
             if (medi.medicineId.category.includes(categoryName)) { 
-                medcineList.innerHTML +=
+                medicineList.innerHTML +=
                 '<article class="card_medicine_item">'+
-                    '<header class="card__header">'+
+                    '<div class="card__header">'+
                         `<h1 class="medicine__name">${medi.medicineId.name}</h1>`+
-                    '</header>'+
+                    '</div>'+
                     '<div class="card__image">'+
                         `<input type="hidden" name="medicineId" value="${medi.medicineId._id}">`+
                         `<img src="${medi.medicineId.imageUrl}" type="button" onclick="addMedicineInCart(this)">`+

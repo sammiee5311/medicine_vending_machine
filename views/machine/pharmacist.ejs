@@ -1,48 +1,61 @@
 <%- include('../includes/head.ejs') %>
 <body>
-    <div id="errorMessage"></div>
-    <div class="box">
-      <!-- <form action="/pharmacist-get-medicines" method="POST">
-        <div class="form-group">
-          <label for="msgForm">Medicines: </label>
-          <input type="text" name="medicineIds" class="form-control" id="msgForm">
-          <button type="submit" class="btn btn-primary">Send</button>
-          <lable id="chatLogs"></lable>
-        </div> 
-      </form>-->
-      
-      <a href="/" class="prev" id="prev_pharmacist"><</a>
+  <header>
+    <a href="/">🏠 시작화면</a>
+  </header>
+  <aside class="menubar"></aside>
+  <div id="errorMessage"></div>
+  <div class="box">
+    <!-- <form action="/pharmacist-get-medicines" method="POST">
+      <div class="form-group">
+        <label for="msgForm">Medicines: </label>
+        <input type="text" name="medicineIds" class="form-control" id="msgForm">
+        <button type="submit" class="btn btn-primary">Send</button>
+        <lable id="chatLogs"></lable>
+      </div> 
+    </form>-->
 
-      <div id= "video" class="video">
-      </div>
+    <div id= "video" class="video"></div>
+          
+    <form action="/pharmacist-call" method="post" class="telephone">
+      <input type="hidden" name="callSignal" value="1">
+      <img src="images/telephone_up.png" type="button" onclick="callPharmacist(this)" class="telephone_image">
+    </form>
+    
+    <form action="/pharmacist-end-call" method="post" class="telephone" >
+      <input type="hidden" name="callEndSignall">
+      <img src="images/telephone_down.png" type="button" onclick="endCallPharmacist(this)"  class="telephone_image">
+    </form>
 
-      <div class="payment">
-        <input type="hidden" name="ok" value="pharmacist">
-        <button class="ok" id="ok" href = "javascript:void(0)"
-        onclick = "orderMedicines(this)">구매하기</button></p>
-        <div id="light" class="white_content">
-        <button href = "javascript:void(0)" 
-        onclick = "cancelOrderMedicines(this)">취소하기</button></div>
-        <button class="cancel" id="cancel" onclick="cancel(this)">취소하기</button>
-      </div>
-            
-      <form action="/pharmacist-call" method="post" class="telephone">
-        <input type="hidden" name="callSignal" value="1">
-        <img src="images/telephone_up.png" type="button" onclick="callPharmacist(this)" class="telephone_image">
-      </form>
-      
-      <form action="/pharmacist-end-call" method="post" class="telephone" >
-        <input type="hidden" name="callEndSignall">
-        <img src="images/telephone_down.png" type="button" onclick="endCallPharmacist(this)"  class="telephone_image">
-      </form>
+  </div>
 
+  <div class="white_content" id="light">
+    <a href = "javascript:void(0)" 
+    onclick = "cancelOrderMedicines(this)">취소하기</a></div>
+    <div class="black_overlay" id="fade"></div>
+
+<footer>
+    <div class="payment">
+        <h2>결제금액 <span id="price">0</span></h2>
+
+        <input type="hidden" name="ok" value="vending">
+        <button class="ok"name="ok" href ="javascript:void(0)" value="vending" 
+        onclick = "orderMedicines(this)">결제하기</button>
+
+        <button class="cancel" 
+        onclick="cancel(this)">취소하기</button>
     </div>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/js/pharmacistOrder.js"></script>
-    <script src="/js/checkout.js"></script>
-    <script src="/js/vendingOrder.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/js/socket.io.js"></script> -->
+
+    <div  class="medicinesCart" id="medicinesCart"></div>
+
+</footer>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/pharmacistOrder.js"></script>
+  <script src="/js/checkout.js"></script>
+  <script src="/js/vendingOrder.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/socket.io.js"></script> -->
 <%- include('../includes/end.ejs') %>    
