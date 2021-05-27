@@ -5,7 +5,7 @@ const checkout = (btn) => {
     changeBtnColor(btn, orderColor);
     window.location.href='/'+url+'-clear-cart';
     updatedHTML = `<img src="/images/logo.png" alt="logo" class="logo">` +
-    `<h1> 약품이 나오는 중입니다. <h1>`+
+    `<h2> 상품이 나오는 중입니다. <h2>`+
     `<center> <img src="/images/loading.gif" alt="loading" class="loading"> </center>`;
     light.innerHTML = updatedHTML;
 }

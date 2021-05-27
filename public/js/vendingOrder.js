@@ -47,11 +47,11 @@ const addMedicineInCart = async (btn) => {
             errorMessage.innerHTML='';
             currentPrice += addedMedicine.price;
             updatedHTML = 
-                '<div class="list">'+
-                    `<h3 class="medicine__name">${addedMedicine.name}</h3>`+
-                    `<input type="hidden" name="medicineId" value="${addedMedicine._id}">`+
-                    '<button class="btn" type="button" onclick="deleteFromCart(this)">삭제</button>'+
-                '</div>';
+            '<div class="medicineCart_list">'+
+                `<h3 class="medicine__name">${addedMedicine.name}</h3>`+
+                `<input type="hidden" name="medicineId" value="${addedMedicine._id}">`+
+                '<button class="medicineCart_delete" type="button" onclick="deleteFromCart(this)">삭제</button>' +
+            '</div>';
             medicinesCart.innerHTML += updatedHTML;
             price.innerHTML = currentPrice;
         }
