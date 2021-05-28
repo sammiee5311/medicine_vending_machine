@@ -12,8 +12,9 @@ Many people complain about not only getting medicine at working hours but also h
 
 ## Images (Examples)
 
-![](./images/1.png)
-![](./images/2.png)
+1 | 2 |
+:------------: | :-----------: |
+<img src="/images/webpage1.png">  | <img src="/images/webpage2.png"> |
 
 ## File directory tree
 
@@ -72,7 +73,7 @@ MedicineVendingMachine
 
 ### Hardward
 - [x] control motors
-- [ ] make a frame by using a 3D printer
+- [x] make a frame with acrylic plates
 - [ ] complete the machine
 
 ### Software
