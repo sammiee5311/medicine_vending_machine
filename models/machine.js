@@ -29,10 +29,10 @@ class pythonModule{
                 if(err){
                     reject({ success: false, err });
                 }
-                if(results.length >= 1 && results[results.length-1] === 'success') {
+                if(results != null && results.length >= 1 && results[results.length-1] === 'success') {
                     resolve({ success: true, results });
                 } 
-                else if (results[results.length-1] === 'fail'){
+                else if (results != null && results[results.length-1] === 'fail'){
                     console.log("Fail");
                     resolve({ success: true, results });
                 }

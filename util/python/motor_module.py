@@ -35,9 +35,9 @@ class MotorModule:
     def move_motors(self, name: str) -> None:
         try:
             self.motors[name].write(0.6)
-            time.sleep(2)
-            self.motors[name].write(0)
             time.sleep(1)
+            self.motors[name].write(0)
+            time.sleep(0.5)
 
         except KeyError:
             print('%s ID is not contained in medicine list.' %name)
