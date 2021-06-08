@@ -9,7 +9,7 @@ from motor_module import MotorModule
 ####################################
 
 class PythonModule():
-    def __init__(self, data: List[str]):
+    def __init__(self, data: List[str]) -> None:
         self.data_from_nodejs = data
 
     def __repr__(self) -> str:

@@ -13,7 +13,6 @@ export const getIndexPage = (req, res, next) =>{
     const curMachine = req.machine;
     res.render('machine/pharmacist', {
         pageTitle: 'pharmacist',
-        isCallButtonClicked: false,
         path: '/pharmacist'
     })
     curMachine.cart.medicines = [];
