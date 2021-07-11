@@ -93,6 +93,6 @@ MedicineVendingMachine
 - [x] make a User Interface
 - [x] connect to AWS
 - [x] complete client-side
-- [ ] complete server-side
+- [x] complete server-side
 
 ## Reference
